@@ -1,5 +1,7 @@
+import { WorkshopModel } from './WorkshopModel'
+
 export default interface WorkShopModelRepository {
-  save(): void
+  save(workshop: WorkshopModel): void
   find(): void
   delete(): void
 }

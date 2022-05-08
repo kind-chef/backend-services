@@ -3,9 +3,10 @@ import workshopModel from './workshops/workshop-model/infrastructure/CreateWorks
 
 const port = 8090
 const app = express()
+app.use(express.json())
 
 app.listen(port, () => {
   console.log(`[App]: Listening on port ${port}`)
 })
 
-app.get('/', workshopModel)
+app.post('/', workshopModel)

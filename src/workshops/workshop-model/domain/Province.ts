@@ -1,7 +1,7 @@
 export default class Province {
   private value: String
 
-  public Province(value: String) {
+  constructor(value: String) {
     this.value = value
   }
 
@@ -9,7 +9,7 @@ export default class Province {
     this.value = value
   }
 
-  public getValue(value: String) {
-    this.value = value
+  public getValue() {
+    return this.value
   }
 }

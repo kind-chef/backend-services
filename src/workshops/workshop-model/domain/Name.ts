@@ -1,7 +1,7 @@
 export default class Name {
   private value: String
 
-  public Name(value: String) {
+  constructor(value: String) {
     this.value = value
   }
 
@@ -9,7 +9,7 @@ export default class Name {
     this.value = value
   }
 
-  public getValue(value: String) {
-    this.value = value
+  public getValue() {
+    return this.value
   }
 }
