@@ -6,6 +6,7 @@ import Province from '../domain/Province'
 import { WorkshopModel } from '../domain/WorkshopModel'
 import WorkShopModelRepository from '../domain/WorkshopModelRepository'
 import Street from '../domain/Street'
+import MailEventManager from '../domain/MailEventManager'
 
 export default class CreateWorkShopModel {
   private workShopModelRepository: WorkShopModelRepository
@@ -14,9 +15,7 @@ export default class CreateWorkShopModel {
     this.workShopModelRepository = workShopModelRepository
   }
 
-  async createWorkShopModel(requestBody: any) {
-    console.log(requestBody)
-    console.log(String(requestBody.postalCode).length)
+  async createWorkShopModel(requestBody: any, mailEventManager: MailEventManager) {
     const workshop = new WorkshopModel(
       new Capacity(Number(requestBody.capacity)),
       new Street(String(requestBody.street)),
@@ -26,5 +25,6 @@ export default class CreateWorkShopModel {
       new Name(String(requestBody.name))
     )
     await this.workShopModelRepository.save(workshop)
+    await mailEventManager.sendNotification(['perepadial@gmail.com'])
   }
 }
