@@ -1,6 +1,6 @@
 import express from 'express'
 import workshopModel from './workshops/workshop-model/infrastructure/CreateWorkshopModelController'
-
+import getAllWorkshopModels from './workshops/workshop-model/infrastructure/FindAllWorkshopModelController'
 const port = 8090
 const app = express()
 app.use(express.json())
@@ -10,3 +10,5 @@ app.listen(port, () => {
 })
 
 app.post('/', workshopModel)
+
+app.get('/getall', getAllWorkshopModels)
