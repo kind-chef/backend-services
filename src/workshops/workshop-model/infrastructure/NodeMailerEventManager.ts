@@ -2,7 +2,7 @@ import MailEventManager from '../domain/MailEventManager'
 import nodemailer from 'nodemailer'
 
 export default class NodeMailerEventManager implements MailEventManager {
-  public async sendNotification(emailToList: String[]) {
+  public async sendNotification(emailToList: string[]) {
     const transporter: nodemailer.Transporter = this.login()
     const mailOptions = this.getMailOptions(emailToList)
     await transporter.sendMail(mailOptions)
@@ -10,20 +10,23 @@ export default class NodeMailerEventManager implements MailEventManager {
 
   private login(): nodemailer.Transporter {
     return nodemailer.createTransport({
-      service: 'zohomail',
+      host: 'smtp.zoho.eu',
+      port: 465,
+      secure: true,
       auth: {
-        user: 'kindchef@zohomail.com',
+        user: 'kindchef',
         pass: 'bWKWHi44fVtfF,:9'
       }
     })
   }
 
-  private getMailOptions(emailToList: String[]) {
+  private getMailOptions(emailToList: string[]) {
     return {
-      from: 'kindchef@zohomail.com',
+      from: 'kindchef@zohomail.eu',
       to: emailToList.join(','),
       subject: 'New Workshop Model pending to be verified',
-      text: 'A new workshop model has registered in the system, please verify the details on the administration panel'
+      text: 'A new workshop model has registered in the system, please verify the details on the administration panel',
+      secure: false
     }
   }
 }

@@ -1,5 +1,5 @@
 import WorkShopModelRepository from '../domain/WorkshopModelRepository'
-import { model, Schema, Document, connect } from 'mongoose'
+import { model, Schema, connect } from 'mongoose'
 import { WorkshopModel } from '../domain/WorkshopModel'
 import Capacity from '../domain/Capacity'
 import Street from '../domain/Street'

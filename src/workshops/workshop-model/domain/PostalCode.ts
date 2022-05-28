@@ -2,13 +2,13 @@ import PostalCodeMalFormattedException from './PostalCodeMalFormattedException'
 
 const MAX_POSTCODE_CHARS = 5
 export default class PostalCode {
-  private value: String
+  private value: string
 
-  constructor(value: String) {
+  constructor(value: string) {
     this.setValue(value)
   }
 
-  public setValue(value: String) {
+  public setValue(value: string) {
     if (!this.validate(value)) throw new PostalCodeMalFormattedException(`Postal code mal formatted`)
     this.value = value
   }
@@ -17,7 +17,7 @@ export default class PostalCode {
     return this.value
   }
 
-  private validate(value: String) {
+  private validate(value: string) {
     return value.length == MAX_POSTCODE_CHARS
   }
 }

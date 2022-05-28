@@ -1,11 +1,11 @@
 export default class Province {
-  private value: String
+  private value: string
 
-  constructor(value: String) {
+  constructor(value: string) {
     this.value = value
   }
 
-  public setValue(value: String) {
+  public setValue(value: string) {
     this.value = value
   }
 
