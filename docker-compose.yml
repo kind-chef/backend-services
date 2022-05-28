@@ -2,7 +2,7 @@ version: '3.6'
 
 services:
   kind-chef:
-    image: perepadial/kind-chef:alpine-latest
+    build: .
     container_name: 'kind-chef'
     ports:
         - 8090:8090
