@@ -1,6 +1,8 @@
 import User from '../domain/User'
 import UserRepository from '../domain/UserRepository'
 import { model, Schema, connect } from 'mongoose'
+import Email from '../domain/Email'
+import Secret from '../domain/Secret'
 
 interface UserDocument {
   email: string
@@ -24,8 +26,7 @@ const userModel = model<UserDocument>('Users', userSchema)
 
 export default class UserMongoRepository implements UserRepository {
   async register(user: User) {
-    await connect('mongodb://kindchef:S3cret@mongo:27017/test?authSource=admin&w=1')
-
+    await this.connect()
     const userMongo = await new userModel({
       email: user.getEmail(),
       firstName: user.getFirstName(),
@@ -37,6 +38,16 @@ export default class UserMongoRepository implements UserRepository {
 
     await userMongo.save()
 
-    console.log('user registered correctly')
+    return 'user registered correctly'
+  }
+
+  async login(email: Email, secret: Secret): Promise<Boolean> {
+    await this.connect()
+    const user = await userModel.findOne({ email: email.getValue(), secret: secret.getValue() })
+    return !!user
+  }
+
+  private async connect() {
+    return await connect('mongodb://kindchef:S3cret@mongo:27017/test?authSource=admin&w=1')
   }
 }
