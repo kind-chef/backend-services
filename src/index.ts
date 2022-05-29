@@ -14,7 +14,7 @@ app.listen(port, () => {
 
 app.post('/registerUser', registerUser)
 
-app.get('/login', login)
+app.post('/login', login)
 
 app.post('/', workshopModel)
 
