@@ -8,6 +8,7 @@ import PostalCode from '../domain/PostalCode'
 import Province from '../domain/Province'
 import Name from '../domain/Name'
 import Id from '../domain/Id'
+import WorkshopNotFoundException from '../domain/Exceptions/WorkshopNotFoundException'
 
 interface WorkShopModelDocument {
   _id: string
@@ -35,11 +36,13 @@ const DATABASE_URL = 'mongodb://kindchef:S3cret@mongo:27017/test?authSource=admi
 export default class WorkShopModelMongoRepository implements WorkShopModelRepository {
   async find(id: Id): Promise<WorkshopModel> {
     await connect(DATABASE_URL)
-
-    const unformattedWorkshop = await workshopModel.findById(id.getValue())
-    const workshop = this.parseDocumentToWorkshop(unformattedWorkshop as WorkShopModelDocument)
-
-    return Promise.resolve(workshop)
+    try {
+      const unformattedWorkshop = await workshopModel.findById(id.getValue())
+      const workshop = this.parseDocumentToWorkshop(unformattedWorkshop as WorkShopModelDocument)
+      return Promise.resolve(workshop)
+    } catch (e) {
+      throw new WorkshopNotFoundException('Model not found')
+    }
   }
 
   async save(workshop: WorkshopModel) {

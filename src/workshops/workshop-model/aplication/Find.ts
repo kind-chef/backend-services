@@ -11,7 +11,6 @@ export default class Find {
 
   public async execute(request: any): Promise<WorkshopModel> {
     const id = new Id(request.params.workshopId)
-    console.log(request.params)
     return await this.repository.find(id)
   }
 }
