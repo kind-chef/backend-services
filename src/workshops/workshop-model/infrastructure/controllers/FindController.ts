@@ -1,6 +1,6 @@
 import express from 'express'
-import Find from '../aplication/Find'
-import WorkShopModelMongoRepository from './WorkShopModelMongoRepository'
+import Find from '../../aplication/Find'
+import WorkShopModelMongoRepository from '../WorkShopModelMongoRepository'
 
 export default async function findWorkShop(req: express.Request, res: express.Response) {
   const workshopModelRepository = new WorkShopModelMongoRepository()

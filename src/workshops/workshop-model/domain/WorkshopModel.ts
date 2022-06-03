@@ -6,6 +6,7 @@ import PostalCode from './PostalCode'
 import Province from './Province'
 import Street from './Street'
 import Id from './Id'
+import Approved from './Approved'
 
 export class WorkshopModel {
   private capacity: Capacity
@@ -15,7 +16,7 @@ export class WorkshopModel {
   private province: Province
   private name: Name
   private id: Id
-
+  private approved: Approved
   constructor(
     id: Id,
     name: Name,
@@ -23,7 +24,8 @@ export class WorkshopModel {
     city: City,
     postCode: PostalCode,
     province: Province,
-    capacity: Capacity
+    capacity: Capacity,
+    approved: Approved = new Approved(false)
   ) {
     this.capacity = capacity
     this.street = street
@@ -32,6 +34,7 @@ export class WorkshopModel {
     this.province = province
     this.name = name
     this.id = id
+    this.approved = approved
   }
 
   public getId() {
@@ -60,5 +63,9 @@ export class WorkshopModel {
 
   public getCapacity() {
     return this.capacity.getValue()
+  }
+
+  public getApproved() {
+    return this.approved.getValue()
   }
 }

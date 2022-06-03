@@ -1,6 +1,6 @@
 import express from 'express'
-import GetAllWorkshopModels from '../aplication/GetAllWorkshopModels'
-import WorkShopModelMongoRepository from './WorkShopModelMongoRepository'
+import GetAllWorkshopModels from '../../aplication/GetAllWorkshopModels'
+import WorkShopModelMongoRepository from '../WorkShopModelMongoRepository'
 
 export default getAllWorkshopModels
 

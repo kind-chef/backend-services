@@ -18,6 +18,7 @@ interface WorkShopModelDocument {
   postalCode: string
   province: string
   street: string
+  approved: boolean
 }
 
 const workShopModelSchema = new Schema({
@@ -27,7 +28,8 @@ const workShopModelSchema = new Schema({
   city: { type: String },
   postalCode: { type: String },
   province: { type: String },
-  street: { type: String }
+  street: { type: String },
+  approved: { type: Boolean }
 })
 
 const workshopModel = model<WorkShopModelDocument>('WorkShopModel', workShopModelSchema)
@@ -55,7 +57,8 @@ export default class WorkShopModelMongoRepository implements WorkShopModelReposi
       city: workshop.getCity(),
       postalCode: workshop.getPostalCode(),
       province: workshop.getProvince(),
-      street: workshop.getStreet()
+      street: workshop.getStreet(),
+      approved: workshop.getApproved()
     })
 
     try {
@@ -63,13 +66,12 @@ export default class WorkShopModelMongoRepository implements WorkShopModelReposi
     } catch (e: any) {
       console.error(e)
     }
-
-    console.log('Workshop Model created correcty ---> ', workshopMongo.name)
   }
 
   async findAll(): Promise<WorkshopModel[]> {
     await connect(DATABASE_URL)
-    const unformattedWorkshops = await workshopModel.find()
+    const filter = { approved: false }
+    const unformattedWorkshops = await workshopModel.find(filter)
     const workshops = unformattedWorkshops.map((value: WorkShopModelDocument) => {
       return this.parseDocumentToWorkshop(value)
     })
@@ -90,5 +92,13 @@ export default class WorkShopModelMongoRepository implements WorkShopModelReposi
       new Province(String(workshopDocument.province)),
       new Capacity(Number(workshopDocument.capacity))
     )
+  }
+
+  async approve(id: Id): Promise<Boolean> {
+    await connect(DATABASE_URL)
+    const filter = { _id: id.getValue() }
+    const update = { approved: true }
+    await workshopModel.findOneAndUpdate(filter, update)
+    return Promise.resolve(true)
   }
 }

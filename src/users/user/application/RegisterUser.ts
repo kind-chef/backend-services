@@ -15,7 +15,6 @@ export default class RegisterUser {
   }
 
   async execute(request: any) {
-    console.log(request)
     const email = new Email(request.email)
     const firstName = new FirstName(request.firstName)
     const lastName = new LastName(request.lastName)
@@ -23,7 +22,6 @@ export default class RegisterUser {
     const profile = new Profile(request.profile)
     const secret = new Secret(request.secret)
     const user = new User(email, firstName, lastName, phoneNumber, profile, secret)
-    console.log(user)
     return await this.repository.register(user)
   }
 }
