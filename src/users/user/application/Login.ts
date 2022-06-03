@@ -1,7 +1,6 @@
 import Email from '../domain/Email'
 import Secret from '../domain/Secret'
 import UserRepository from '../domain/UserRepository'
-
 export default class Login {
   private repository: UserRepository
 
