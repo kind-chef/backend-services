@@ -8,7 +8,7 @@ import Street from './Street'
 import Id from './Id'
 import Approved from './Approved'
 
-export class WorkshopModel {
+export class Kitchen {
   private capacity: Capacity
   private street: Street
   private city: City

@@ -1,5 +1,5 @@
 import Id from '../domain/Id'
-import { WorkshopModel } from '../domain/WorkshopModel'
+import { Kitchen } from '../domain/Kitchen'
 import WorkShopModelRepository from '../domain/WorkshopModelRepository'
 
 export default class Find {
@@ -9,7 +9,7 @@ export default class Find {
     this.repository = repository
   }
 
-  public async execute(request: any): Promise<WorkshopModel> {
+  public async execute(request: any): Promise<Kitchen> {
     const id = new Id(request.params.kitchenId)
     return await this.repository.find(id)
   }

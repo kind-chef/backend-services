@@ -1,4 +1,4 @@
-import { WorkshopModel } from '../domain/WorkshopModel'
+import { Kitchen } from '../domain/Kitchen'
 import WorkShopModelRepository from '../domain/WorkshopModelRepository'
 
 export default class GetAllWorkshopModels {
@@ -8,7 +8,7 @@ export default class GetAllWorkshopModels {
     this.workShopModelRepository = workShopModelRepository
   }
 
-  async execute(): Promise<WorkshopModel[]> {
+  async execute(): Promise<Kitchen[]> {
     return await this.workShopModelRepository.findAll()
   }
 }

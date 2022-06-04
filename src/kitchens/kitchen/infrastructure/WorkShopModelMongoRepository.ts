@@ -1,6 +1,6 @@
 import WorkShopModelRepository from '../domain/WorkshopModelRepository'
 import { model, Schema, connect } from 'mongoose'
-import { WorkshopModel } from '../domain/WorkshopModel'
+import { Kitchen } from '../domain/Kitchen'
 import Capacity from '../domain/Capacity'
 import Street from '../domain/Street'
 import City from '../domain/City'
@@ -36,7 +36,7 @@ const workshopModel = model<WorkShopModelDocument>('WorkShopModel', workShopMode
 const DATABASE_URL = 'mongodb://kindchef:S3cret@mongo:27017/test?authSource=admin&w=1'
 
 export default class WorkShopModelMongoRepository implements WorkShopModelRepository {
-  async find(id: Id): Promise<WorkshopModel> {
+  async find(id: Id): Promise<Kitchen> {
     await connect(DATABASE_URL)
     try {
       const unformattedWorkshop = await workshopModel.findById(id.getValue())
@@ -47,7 +47,7 @@ export default class WorkShopModelMongoRepository implements WorkShopModelReposi
     }
   }
 
-  async save(workshop: WorkshopModel) {
+  async save(workshop: Kitchen) {
     await connect(DATABASE_URL)
 
     const workshopMongo = await new workshopModel({
@@ -68,7 +68,7 @@ export default class WorkShopModelMongoRepository implements WorkShopModelReposi
     }
   }
 
-  async findAll(): Promise<WorkshopModel[]> {
+  async findAll(): Promise<Kitchen[]> {
     await connect(DATABASE_URL)
     const filter = { approved: false }
     const unformattedWorkshops = await workshopModel.find(filter)
@@ -83,7 +83,7 @@ export default class WorkShopModelMongoRepository implements WorkShopModelReposi
   }
 
   private parseDocumentToWorkshop(workshopDocument: WorkShopModelDocument) {
-    return new WorkshopModel(
+    return new Kitchen(
       new Id(String(workshopDocument._id)),
       new Name(String(workshopDocument.name)),
       new Street(String(workshopDocument.street)),
