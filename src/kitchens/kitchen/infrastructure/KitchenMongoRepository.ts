@@ -10,6 +10,8 @@ import Name from '../domain/Name'
 import Id from '../domain/Id'
 import KitchenNotFoundException from '../domain/Exceptions/KitchenNotFoundException'
 import ImageUrls from '../domain/ImageUrls'
+import Email from '../domain/Email'
+import PhoneNumber from '../domain/PhoneNumber'
 
 interface KitchenDocument {
   _id: string
@@ -21,11 +23,15 @@ interface KitchenDocument {
   street: string
   images: Types.Array<string>
   approved: boolean
+  email: string
+  phoneNumber: string
 }
 
 const KitchenSchema = new Schema({
   _id: { type: String, required: true },
   name: { type: String, required: true },
+  email: { type: String, required: true },
+  phoneNumber: { type: String, required: true },
   capacity: { type: Number },
   city: { type: String },
   postalCode: { type: String },
@@ -90,6 +96,8 @@ export default class KitchenMongoRepository implements KitchenRepository {
     return new Kitchen(
       new Id(String(kitchenDocument._id)),
       new Name(String(kitchenDocument.name)),
+      new Email(String(kitchenDocument.email)),
+      new PhoneNumber(String(kitchenDocument.phoneNumber)),
       new Street(String(kitchenDocument.street)),
       new City(String(kitchenDocument.city)),
       new PostalCode(String(kitchenDocument.postalCode)),

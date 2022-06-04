@@ -11,6 +11,8 @@ import Id from '../domain/Id'
 import crypto from 'crypto'
 import fs from 'fs'
 import ImageUrls from '../domain/ImageUrls'
+import Email from '../domain/Email'
+import PhoneNumber from '../domain/PhoneNumber'
 export default class CreateKitchen {
   private KitchenRepository: KitchenRepository
 
@@ -38,6 +40,8 @@ export default class CreateKitchen {
     const kitchen = new Kitchen(
       new Id(crypto.randomUUID()),
       new Name(String(requestBody.name)),
+      new Email(String(requestBody.email)),
+      new PhoneNumber(String(requestBody.phoneNumber)),
       new Street(String(requestBody.street)),
       new City(String(requestBody.city)),
       new PostalCode(String(requestBody.postalCode)),

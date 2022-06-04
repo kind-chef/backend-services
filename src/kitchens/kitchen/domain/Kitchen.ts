@@ -8,6 +8,8 @@ import Street from './Street'
 import Id from './Id'
 import Approved from './Approved'
 import ImageUrls from './ImageUrls'
+import Email from './Email'
+import PhoneNumber from './PhoneNumber'
 
 export default class Kitchen {
   private capacity: Capacity
@@ -19,9 +21,13 @@ export default class Kitchen {
   private id: Id
   private approved: Approved
   private images: ImageUrls
+  private email: Email
+  private phoneNumber: PhoneNumber
   constructor(
     id: Id,
     name: Name,
+    email: Email,
+    phoneNumber: PhoneNumber,
     street: Street,
     city: City,
     postCode: PostalCode,
@@ -37,7 +43,7 @@ export default class Kitchen {
     this.province = province
     this.name = name
     this.id = id
-    this.approved = approved
+    ;(this.email = email), (this.phoneNumber = phoneNumber), (this.approved = approved)
     this.images = images
   }
 
@@ -47,6 +53,14 @@ export default class Kitchen {
 
   public getName() {
     return this.name.getValue()
+  }
+
+  public getEmail() {
+    return this.email.getValue()
+  }
+
+  public getPhoneNumber() {
+    return this.phoneNumber.getValue()
   }
 
   public getProvince() {
