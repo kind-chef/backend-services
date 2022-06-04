@@ -1,10 +1,10 @@
 import Id from '../domain/Id'
-import WorkShopModelRepository from '../domain/WorkshopModelRepository'
+import KitchenRepository from '../domain/KitchenRepository'
 
 export default class Approve {
-  repository: WorkShopModelRepository
+  repository: KitchenRepository
 
-  constructor(repository: WorkShopModelRepository) {
+  constructor(repository: KitchenRepository) {
     this.repository = repository
   }
 

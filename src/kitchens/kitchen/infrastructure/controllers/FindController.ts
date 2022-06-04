@@ -1,10 +1,10 @@
 import express from 'express'
 import Find from '../../aplication/Find'
-import WorkShopModelMongoRepository from '../WorkShopModelMongoRepository'
+import KitchenMongoRepository from '../KitchenMongoRepository'
 
 export default async function findWorkShop(req: express.Request, res: express.Response) {
-  const workshopModelRepository = new WorkShopModelMongoRepository()
-  const useCase = new Find(workshopModelRepository)
+  const KitchenRepository = new KitchenMongoRepository()
+  const useCase = new Find(KitchenRepository)
   try {
     const result = await useCase.execute(req)
     res.send(JSON.stringify(result))

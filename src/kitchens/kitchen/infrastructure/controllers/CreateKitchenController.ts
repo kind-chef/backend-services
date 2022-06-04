@@ -1,17 +1,17 @@
 import express from 'express'
-import CreateWorkShopModel from '../../aplication/CreateWorkshopModel'
+import CreateKitchen from '../../aplication/CreateKitchen'
 import MailEventManager from '../../domain/MailEventManager'
 import NodeMailerEventManager from '../NodeMailerEventManager'
-import WorkShopModelMongoRepository from '../WorkShopModelMongoRepository'
+import KitchenMongoRepository from '../KitchenMongoRepository'
 
 export default createWorkShop
 
 async function createWorkShop(req: express.Request, res: express.Response) {
-  const workshopModelRepository: WorkShopModelMongoRepository = new WorkShopModelMongoRepository()
-  const createWorkshopModelUseCase: CreateWorkShopModel = new CreateWorkShopModel(workshopModelRepository)
+  const KitchenRepository: KitchenMongoRepository = new KitchenMongoRepository()
+  const createKitchenUseCase: CreateKitchen = new CreateKitchen(KitchenRepository)
   const mailEventManager: MailEventManager = new NodeMailerEventManager()
   try {
-    await createWorkshopModelUseCase.createWorkShopModel(req.body, mailEventManager)
+    await createKitchenUseCase.createKitchen(req.body, mailEventManager)
     res.send('Workshop inserted correctly')
   } catch (error: any) {
     res.send(error.message)

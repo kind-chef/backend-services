@@ -9,7 +9,7 @@ import Id from './Id'
 import Approved from './Approved'
 import ImageUrls from './ImageUrls'
 
-export class Kitchen {
+export default class Kitchen {
   private capacity: Capacity
   private street: Street
   private city: City

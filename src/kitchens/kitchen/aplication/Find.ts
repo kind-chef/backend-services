@@ -1,11 +1,11 @@
 import Id from '../domain/Id'
-import { Kitchen } from '../domain/Kitchen'
-import WorkShopModelRepository from '../domain/WorkshopModelRepository'
+import Kitchen from '../domain/Kitchen'
+import KitchenRepository from '../domain/KitchenRepository'
 
 export default class Find {
-  repository: WorkShopModelRepository
+  repository: KitchenRepository
 
-  constructor(repository: WorkShopModelRepository) {
+  constructor(repository: KitchenRepository) {
     this.repository = repository
   }
 

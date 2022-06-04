@@ -3,22 +3,22 @@ import City from '../domain/City'
 import Name from '../domain/Name'
 import PostalCode from '../domain/PostalCode'
 import Province from '../domain/Province'
-import { Kitchen } from '../domain/Kitchen'
-import WorkShopModelRepository from '../domain/WorkshopModelRepository'
+import Kitchen from '../domain/Kitchen'
+import KitchenRepository from '../domain/KitchenRepository'
 import Street from '../domain/Street'
 import MailEventManager from '../domain/MailEventManager'
 import Id from '../domain/Id'
 import crypto from 'crypto'
 import fs from 'fs'
 import ImageUrls from '../domain/ImageUrls'
-export default class CreateWorkShopModel {
-  private workShopModelRepository: WorkShopModelRepository
+export default class CreateKitchen {
+  private KitchenRepository: KitchenRepository
 
-  constructor(workShopModelRepository: WorkShopModelRepository) {
-    this.workShopModelRepository = workShopModelRepository
+  constructor(KitchenRepository: KitchenRepository) {
+    this.KitchenRepository = KitchenRepository
   }
 
-  async createWorkShopModel(requestBody: any, mailEventManager: MailEventManager) {
+  async createKitchen(requestBody: any, mailEventManager: MailEventManager) {
     console.log(requestBody)
     await this.saveFiles(requestBody.images)
     await this.registerKitchen(requestBody, mailEventManager)
@@ -45,7 +45,7 @@ export default class CreateWorkShopModel {
       new Capacity(Number(requestBody.capacity)),
       new ImageUrls(urls)
     )
-    await this.workShopModelRepository.save(workshop)
+    await this.KitchenRepository.save(workshop)
     await mailEventManager.sendNotification(['perepadial@gmail.com'])
   }
 }

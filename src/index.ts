@@ -1,6 +1,6 @@
 import express from 'express'
-import workshopModel from './kitchens/kitchen/infrastructure/controllers/CreateWorkshopModelController'
-import getAllWorkshopModels from './kitchens/kitchen/infrastructure/controllers/FindAllWorkshopModelController'
+import Kitchen from './kitchens/kitchen/infrastructure/controllers/CreateKitchenController'
+import getAllKitchens from './kitchens/kitchen/infrastructure/controllers/FindKitchensToApproveController'
 import approveKitchen from './kitchens/kitchen/infrastructure/controllers/ApproveController'
 import registerUser from './users/user/infrastructure/RegisterUserController'
 import login from './users/user/infrastructure/LoginController'
@@ -20,9 +20,9 @@ app.post('/registerUser', registerUser)
 
 app.post('/login', login)
 
-app.post('/', workshopModel)
+app.post('/', Kitchen)
 
-app.get('/getall', getAllWorkshopModels)
+app.get('/getall', getAllKitchens)
 
 app.get('/kitchen/:kitchenId', findWorkShop)
 
