@@ -12,7 +12,7 @@ async function createWorkShop(req: express.Request, res: express.Response) {
   const mailEventManager: MailEventManager = new NodeMailerEventManager()
   try {
     await createKitchenUseCase.createKitchen(req.body, mailEventManager)
-    res.send('Workshop inserted correctly')
+    res.send('Kitchen inserted correctly')
   } catch (error: any) {
     res.send(error.message)
   }

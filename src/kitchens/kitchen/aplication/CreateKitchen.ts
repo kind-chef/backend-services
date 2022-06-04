@@ -35,7 +35,7 @@ export default class CreateKitchen {
 
   private async registerKitchen(requestBody: any, mailEventManager: MailEventManager) {
     const urls = requestBody.images.map((image: any) => String(`https://localhost:8090/${image.name}`))
-    const workshop = new Kitchen(
+    const kitchen = new Kitchen(
       new Id(crypto.randomUUID()),
       new Name(String(requestBody.name)),
       new Street(String(requestBody.street)),
@@ -45,7 +45,7 @@ export default class CreateKitchen {
       new Capacity(Number(requestBody.capacity)),
       new ImageUrls(urls)
     )
-    await this.KitchenRepository.save(workshop)
+    await this.KitchenRepository.save(kitchen)
     await mailEventManager.sendNotification(['perepadial@gmail.com'])
   }
 }

@@ -8,7 +8,7 @@ import PostalCode from '../domain/PostalCode'
 import Province from '../domain/Province'
 import Name from '../domain/Name'
 import Id from '../domain/Id'
-import WorkshopNotFoundException from '../domain/Exceptions/WorkshopNotFoundException'
+import KitchenNotFoundException from '../domain/Exceptions/KitchenNotFoundException'
 import ImageUrls from '../domain/ImageUrls'
 
 interface KitchenDocument {
@@ -42,31 +42,31 @@ export default class KitchenMongoRepository implements KitchenRepository {
   async find(id: Id): Promise<Kitchen> {
     await connect(DATABASE_URL)
     try {
-      const unformattedWorkshop = await kitchenModel.findById(id.getValue())
-      const workshop = this.parseDocumentToWorkshop(unformattedWorkshop as KitchenDocument)
-      return Promise.resolve(workshop)
+      const unformattedKitchen = await kitchenModel.findById(id.getValue())
+      const kitchen = this.parseDocumentToKitchen(unformattedKitchen as KitchenDocument)
+      return Promise.resolve(kitchen)
     } catch (e) {
-      throw new WorkshopNotFoundException('Model not found')
+      throw new KitchenNotFoundException('Model not found')
     }
   }
 
-  async save(workshop: Kitchen) {
+  async save(kitchen: Kitchen) {
     await connect(DATABASE_URL)
 
-    const workshopMongo = await new kitchenModel({
-      _id: workshop.getId(),
-      name: workshop.getName(),
-      capacity: workshop.getCapacity(),
-      city: workshop.getCity(),
-      postalCode: workshop.getPostalCode(),
-      province: workshop.getProvince(),
-      street: workshop.getStreet(),
-      images: workshop.getImages(),
-      approved: workshop.getApproved()
+    const kitchenMongo = await new kitchenModel({
+      _id: kitchen.getId(),
+      name: kitchen.getName(),
+      capacity: kitchen.getCapacity(),
+      city: kitchen.getCity(),
+      postalCode: kitchen.getPostalCode(),
+      province: kitchen.getProvince(),
+      street: kitchen.getStreet(),
+      images: kitchen.getImages(),
+      approved: kitchen.getApproved()
     })
 
     try {
-      await workshopMongo.save()
+      await kitchenMongo.save()
     } catch (e: any) {
       console.error(e)
     }
@@ -75,27 +75,27 @@ export default class KitchenMongoRepository implements KitchenRepository {
   async findAll(): Promise<Kitchen[]> {
     await connect(DATABASE_URL)
     const filter = { approved: false }
-    const unformattedWorkshops = await kitchenModel.find(filter)
-    const workshops = unformattedWorkshops.map((value: KitchenDocument) => {
-      return this.parseDocumentToWorkshop(value)
+    const unformattedKitchens = await kitchenModel.find(filter)
+    const kitchens = unformattedKitchens.map((value: KitchenDocument) => {
+      return this.parseDocumentToKitchen(value)
     })
-    return Promise.resolve(workshops)
+    return Promise.resolve(kitchens)
   }
 
   delete(): void {
     throw new Error('Method not implemented.')
   }
 
-  private parseDocumentToWorkshop(workshopDocument: KitchenDocument) {
+  private parseDocumentToKitchen(kitchenDocument: KitchenDocument) {
     return new Kitchen(
-      new Id(String(workshopDocument._id)),
-      new Name(String(workshopDocument.name)),
-      new Street(String(workshopDocument.street)),
-      new City(String(workshopDocument.city)),
-      new PostalCode(String(workshopDocument.postalCode)),
-      new Province(String(workshopDocument.province)),
-      new Capacity(Number(workshopDocument.capacity)),
-      new ImageUrls(workshopDocument.images)
+      new Id(String(kitchenDocument._id)),
+      new Name(String(kitchenDocument.name)),
+      new Street(String(kitchenDocument.street)),
+      new City(String(kitchenDocument.city)),
+      new PostalCode(String(kitchenDocument.postalCode)),
+      new Province(String(kitchenDocument.province)),
+      new Capacity(Number(kitchenDocument.capacity)),
+      new ImageUrls(kitchenDocument.images)
     )
   }
 
