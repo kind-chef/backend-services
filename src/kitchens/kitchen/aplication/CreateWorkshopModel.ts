@@ -10,6 +10,7 @@ import MailEventManager from '../domain/MailEventManager'
 import Id from '../domain/Id'
 import crypto from 'crypto'
 import fs from 'fs'
+import ImageUrls from '../domain/ImageUrls'
 export default class CreateWorkShopModel {
   private workShopModelRepository: WorkShopModelRepository
 
@@ -33,6 +34,7 @@ export default class CreateWorkShopModel {
   }
 
   private async registerKitchen(requestBody: any, mailEventManager: MailEventManager) {
+    const urls = requestBody.images.map((image: any) => String(`https://localhost:8090/${image.name}`))
     const workshop = new Kitchen(
       new Id(crypto.randomUUID()),
       new Name(String(requestBody.name)),
@@ -40,7 +42,8 @@ export default class CreateWorkShopModel {
       new City(String(requestBody.city)),
       new PostalCode(String(requestBody.postalCode)),
       new Province(String(requestBody.province)),
-      new Capacity(Number(requestBody.capacity))
+      new Capacity(Number(requestBody.capacity)),
+      new ImageUrls(urls)
     )
     await this.workShopModelRepository.save(workshop)
     await mailEventManager.sendNotification(['perepadial@gmail.com'])

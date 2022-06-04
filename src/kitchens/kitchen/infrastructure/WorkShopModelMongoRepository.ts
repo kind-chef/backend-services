@@ -1,5 +1,5 @@
 import WorkShopModelRepository from '../domain/WorkshopModelRepository'
-import { model, Schema, connect } from 'mongoose'
+import { model, Schema, connect, Types } from 'mongoose'
 import { Kitchen } from '../domain/Kitchen'
 import Capacity from '../domain/Capacity'
 import Street from '../domain/Street'
@@ -9,6 +9,7 @@ import Province from '../domain/Province'
 import Name from '../domain/Name'
 import Id from '../domain/Id'
 import WorkshopNotFoundException from '../domain/Exceptions/WorkshopNotFoundException'
+import ImageUrls from '../domain/ImageUrls'
 
 interface WorkShopModelDocument {
   _id: string
@@ -18,6 +19,7 @@ interface WorkShopModelDocument {
   postalCode: string
   province: string
   street: string
+  images: Types.Array<string>
   approved: boolean
 }
 
@@ -29,6 +31,7 @@ const workShopModelSchema = new Schema({
   postalCode: { type: String },
   province: { type: String },
   street: { type: String },
+  images: [String],
   approved: { type: Boolean }
 })
 
@@ -58,6 +61,7 @@ export default class WorkShopModelMongoRepository implements WorkShopModelReposi
       postalCode: workshop.getPostalCode(),
       province: workshop.getProvince(),
       street: workshop.getStreet(),
+      images: workshop.getImages(),
       approved: workshop.getApproved()
     })
 
@@ -90,7 +94,8 @@ export default class WorkShopModelMongoRepository implements WorkShopModelReposi
       new City(String(workshopDocument.city)),
       new PostalCode(String(workshopDocument.postalCode)),
       new Province(String(workshopDocument.province)),
-      new Capacity(Number(workshopDocument.capacity))
+      new Capacity(Number(workshopDocument.capacity)),
+      new ImageUrls(workshopDocument.images)
     )
   }
 

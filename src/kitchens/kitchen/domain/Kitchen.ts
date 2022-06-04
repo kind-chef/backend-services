@@ -7,6 +7,7 @@ import Province from './Province'
 import Street from './Street'
 import Id from './Id'
 import Approved from './Approved'
+import ImageUrls from './ImageUrls'
 
 export class Kitchen {
   private capacity: Capacity
@@ -17,6 +18,7 @@ export class Kitchen {
   private name: Name
   private id: Id
   private approved: Approved
+  private images: ImageUrls
   constructor(
     id: Id,
     name: Name,
@@ -25,6 +27,7 @@ export class Kitchen {
     postCode: PostalCode,
     province: Province,
     capacity: Capacity,
+    images: ImageUrls,
     approved: Approved = new Approved(false)
   ) {
     this.capacity = capacity
@@ -35,6 +38,7 @@ export class Kitchen {
     this.name = name
     this.id = id
     this.approved = approved
+    this.images = images
   }
 
   public getId() {
@@ -67,5 +71,9 @@ export class Kitchen {
 
   public getApproved() {
     return this.approved.getValue()
+  }
+
+  public getImages() {
+    return this.images.getValue()
   }
 }
