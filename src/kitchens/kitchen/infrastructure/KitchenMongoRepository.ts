@@ -62,6 +62,8 @@ export default class KitchenMongoRepository implements KitchenRepository {
     const kitchenMongo = await new kitchenModel({
       _id: kitchen.getId(),
       name: kitchen.getName(),
+      email: kitchen.getEmail(),
+      phoneNumber: kitchen.getPhoneNumber(),
       capacity: kitchen.getCapacity(),
       city: kitchen.getCity(),
       postalCode: kitchen.getPostalCode(),
