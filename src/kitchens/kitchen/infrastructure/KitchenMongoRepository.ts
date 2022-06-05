@@ -2,10 +2,11 @@ import KitchenRepository from '../domain/KitchenRepository'
 import { model, Schema, connect, Types } from 'mongoose'
 import Kitchen from '../domain/Kitchen'
 import Capacity from '../domain/Capacity'
-import Street from '../domain/Street'
-import City from '../domain/City'
-import PostalCode from '../domain/PostalCode'
-import Province from '../domain/Province'
+import Address from '../../../global/domain/Address'
+import PostalCode from '../../../global/domain/PostalCode'
+import City from '../../../global/domain/City'
+import Province from '../../../global/domain/Province'
+import Street from '../../../global/domain/Street'
 import Name from '../domain/Name'
 import Id from '../domain/Id'
 import KitchenNotFoundException from '../domain/Exceptions/KitchenNotFoundException'
@@ -65,10 +66,10 @@ export default class KitchenMongoRepository implements KitchenRepository {
       email: kitchen.getEmail(),
       phoneNumber: kitchen.getPhoneNumber(),
       capacity: kitchen.getCapacity(),
-      city: kitchen.getCity(),
-      postalCode: kitchen.getPostalCode(),
-      province: kitchen.getProvince(),
-      street: kitchen.getStreet(),
+      city: kitchen.getAddress().getCity(),
+      postalCode: kitchen.getAddress().getPostalCode(),
+      province: kitchen.getAddress().getProvince(),
+      street: kitchen.getAddress().getStreet(),
       images: kitchen.getImages(),
       approved: kitchen.getApproved()
     })
@@ -100,10 +101,12 @@ export default class KitchenMongoRepository implements KitchenRepository {
       new Name(String(kitchenDocument.name)),
       new Email(String(kitchenDocument.email)),
       new PhoneNumber(String(kitchenDocument.phoneNumber)),
-      new Street(String(kitchenDocument.street)),
-      new City(String(kitchenDocument.city)),
-      new PostalCode(String(kitchenDocument.postalCode)),
-      new Province(String(kitchenDocument.province)),
+      new Address(
+        new Street(String(kitchenDocument.street)),
+        new City(String(kitchenDocument.city)),
+        new PostalCode(String(kitchenDocument.postalCode)),
+        new Province(String(kitchenDocument.province))
+      ),
       new Capacity(Number(kitchenDocument.capacity)),
       new ImageUrls(kitchenDocument.images)
     )

@@ -1,4 +1,4 @@
-import PostalCodeMalFormattedException from './Exceptions/PostalCodeMalFormattedException'
+import PostalCodeMalFormattedException from './exceptions/PostalCodeMalFormattedException'
 
 const MAX_POSTCODE_CHARS = 5
 export default class PostalCode {

@@ -5,11 +5,7 @@ export default class City {
     this.value = value
   }
 
-  public setValue(value: string) {
-    this.value = value
-  }
-
-  public getValue() {
+  public getValue(): string {
     return this.value
   }
 }
