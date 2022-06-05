@@ -7,8 +7,11 @@ import Province from './Province'
 import Street from './Street'
 import Id from './Id'
 import Approved from './Approved'
+import ImageUrls from './ImageUrls'
+import Email from './Email'
+import PhoneNumber from './PhoneNumber'
 
-export class WorkshopModel {
+export default class Kitchen {
   private capacity: Capacity
   private street: Street
   private city: City
@@ -17,14 +20,20 @@ export class WorkshopModel {
   private name: Name
   private id: Id
   private approved: Approved
+  private images: ImageUrls
+  private email: Email
+  private phoneNumber: PhoneNumber
   constructor(
     id: Id,
     name: Name,
+    email: Email,
+    phoneNumber: PhoneNumber,
     street: Street,
     city: City,
     postCode: PostalCode,
     province: Province,
     capacity: Capacity,
+    images: ImageUrls,
     approved: Approved = new Approved(false)
   ) {
     this.capacity = capacity
@@ -34,7 +43,8 @@ export class WorkshopModel {
     this.province = province
     this.name = name
     this.id = id
-    this.approved = approved
+    ;(this.email = email), (this.phoneNumber = phoneNumber), (this.approved = approved)
+    this.images = images
   }
 
   public getId() {
@@ -43,6 +53,14 @@ export class WorkshopModel {
 
   public getName() {
     return this.name.getValue()
+  }
+
+  public getEmail() {
+    return this.email.getValue()
+  }
+
+  public getPhoneNumber() {
+    return this.phoneNumber.getValue()
   }
 
   public getProvince() {
@@ -67,5 +85,9 @@ export class WorkshopModel {
 
   public getApproved() {
     return this.approved.getValue()
+  }
+
+  public getImages() {
+    return this.images.getValue()
   }
 }

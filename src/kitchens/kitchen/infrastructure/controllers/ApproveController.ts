@@ -1,10 +1,10 @@
 import express, { response } from 'express'
 import Approve from '../../aplication/Approve'
-import WorkShopModelMongoRepository from '../WorkShopModelMongoRepository'
+import KitchenMongoRepository from '../KitchenMongoRepository'
 
 export default async function ApproveController(req: express.Request, response: express.Response) {
-  const workshopModelRepository = new WorkShopModelMongoRepository()
-  const useCase = new Approve(workshopModelRepository)
+  const KitchenRepository = new KitchenMongoRepository()
+  const useCase = new Approve(KitchenRepository)
   try {
     const result = await useCase.execute(req)
     response.send(result)

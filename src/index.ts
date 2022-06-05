@@ -1,16 +1,17 @@
 import express from 'express'
-import workshopModel from './workshops/workshop-model/infrastructure/controllers/CreateWorkshopModelController'
-import getAllWorkshopModels from './workshops/workshop-model/infrastructure/controllers/FindAllWorkshopModelController'
-import approveKitchen from './workshops/workshop-model/infrastructure/controllers/ApproveController'
+import Kitchen from './kitchens/kitchen/infrastructure/controllers/CreateKitchenController'
+import getAllKitchens from './kitchens/kitchen/infrastructure/controllers/FindKitchensToApproveController'
+import approveKitchen from './kitchens/kitchen/infrastructure/controllers/ApproveController'
 import registerUser from './users/user/infrastructure/RegisterUserController'
 import login from './users/user/infrastructure/LoginController'
 import { createServer } from 'https'
 import { readFileSync } from 'fs'
-import findWorkShop from './workshops/workshop-model/infrastructure/controllers/FindController'
-
+import findWorkShop from './kitchens/kitchen/infrastructure/controllers/FindController'
+import path from 'path'
 const port = 8090
 const app = express()
-app.use(express.json())
+app.use(express.json({ limit: '50mb' }))
+app.use(express.static(path.join(__dirname, 'assets')))
 
 const key = readFileSync('./certificates/keyrsa.pem')
 const cert = readFileSync('./certificates/cert.pem')
@@ -19,9 +20,9 @@ app.post('/registerUser', registerUser)
 
 app.post('/login', login)
 
-app.post('/', workshopModel)
+app.post('/', Kitchen)
 
-app.get('/getall', getAllWorkshopModels)
+app.get('/getall', getAllKitchens)
 
 app.get('/kitchen/:kitchenId', findWorkShop)
 

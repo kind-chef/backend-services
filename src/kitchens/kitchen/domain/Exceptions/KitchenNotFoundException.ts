@@ -1,4 +1,4 @@
-export default class WorkshopNotFoundException extends Error {
+export default class KitchenNotFoundException extends Error {
   constructor(exOriginal: string) {
     super(exOriginal)
   }

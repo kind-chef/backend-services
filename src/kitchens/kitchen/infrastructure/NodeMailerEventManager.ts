@@ -24,8 +24,8 @@ export default class NodeMailerEventManager implements MailEventManager {
     return {
       from: 'kindchef@zohomail.eu',
       to: emailToList.join(','),
-      subject: 'New Workshop Model pending to be verified',
-      text: 'A new workshop model has registered in the system, please verify the details on the administration panel',
+      subject: 'New Kitchen Model pending to be verified',
+      text: 'A new kitchen model has registered in the system, please verify the details on the administration panel',
       secure: false
     }
   }
