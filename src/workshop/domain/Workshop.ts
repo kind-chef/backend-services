@@ -48,4 +48,48 @@ export default class Workshop {
     this.address = address
     this.assigned = assigned
   }
+
+  getName(): string {
+    return this.name.getValue()
+  }
+
+  getDescription(): string {
+    return this.description.getValue()
+  }
+
+  getCapacity(): Number {
+    return this.capacity.getValue()
+  }
+
+  getRemainingCapacity(): Number {
+    return this.remainingCapacity.getValue()
+  }
+
+  getDate(): Date {
+    return this.date.getValue()
+  }
+
+  getPrice(): Number {
+    return this.price.getValue()
+  }
+
+  getKeyWords(): KeyWord[] {
+    return this.keywords
+  }
+
+  getIngredients(): Ingredient[] {
+    return this.ingredients
+  }
+
+  getAssets(): AssetUrl[] {
+    return this.assets
+  }
+
+  getAddress(): Address {
+    return this.address
+  }
+
+  getAssigned(): Boolean {
+    return this.assigned.getValue()
+  }
 }
