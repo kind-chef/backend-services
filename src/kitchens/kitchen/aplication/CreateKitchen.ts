@@ -1,11 +1,12 @@
 import Capacity from '../domain/Capacity'
-import City from '../domain/City'
 import Name from '../domain/Name'
-import PostalCode from '../domain/PostalCode'
-import Province from '../domain/Province'
 import Kitchen from '../domain/Kitchen'
 import KitchenRepository from '../domain/KitchenRepository'
-import Street from '../domain/Street'
+import Address from '../../../global/domain/Address'
+import Street from '../../../global/domain/Street'
+import City from '../../../global/domain/City'
+import Province from '../../../global/domain/Province'
+import PostalCode from '../../../global/domain/PostalCode'
 import MailEventManager from '../domain/MailEventManager'
 import Id from '../domain/Id'
 import crypto from 'crypto'
@@ -37,15 +38,18 @@ export default class CreateKitchen {
 
   private async registerKitchen(requestBody: any, mailEventManager: MailEventManager) {
     const urls = requestBody.images.map((image: any) => String(`https://localhost:8090/${image.name}`))
+    const address = new Address(
+      new Street(String(requestBody.street)),
+      new City(String(requestBody.city)),
+      new PostalCode(String(requestBody.postalCode)),
+      new Province(String(requestBody.province))
+    )
     const kitchen = new Kitchen(
       new Id(crypto.randomUUID()),
       new Name(String(requestBody.name)),
       new Email(String(requestBody.email)),
       new PhoneNumber(String(requestBody.phoneNumber)),
-      new Street(String(requestBody.street)),
-      new City(String(requestBody.city)),
-      new PostalCode(String(requestBody.postalCode)),
-      new Province(String(requestBody.province)),
+      address,
       new Capacity(Number(requestBody.capacity)),
       new ImageUrls(urls)
     )
