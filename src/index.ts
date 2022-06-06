@@ -20,7 +20,7 @@ app.post('/registerUser', registerUser)
 
 app.post('/login', login)
 
-app.post('/', Kitchen)
+app.post('/register-kitchen', Kitchen)
 
 app.get('/getall', getAllKitchens)
 
