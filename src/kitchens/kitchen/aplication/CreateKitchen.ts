@@ -30,7 +30,7 @@ export default class CreateKitchen {
   private async saveFiles(files: any[]) {
     let directory = '/kind-chef/src/assets'
     files.forEach(async (file) => {
-      let encodedString = file.content.split(',')[1]
+      let encodedString = file.split(',')[1]
       const fileContents = Buffer.from(encodedString, 'base64')
       fs.writeFileSync(`${directory}/${file.name}`, fileContents)
     })
