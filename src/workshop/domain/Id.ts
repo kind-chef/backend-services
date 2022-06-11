@@ -1,4 +1,4 @@
-export default class AssetUrl {
+export default class Id {
   private value: string
 
   constructor(value: string) {

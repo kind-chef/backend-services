@@ -1,4 +1,4 @@
-export default class Street {
+export default class VideoUrl {
   private value: string
 
   constructor(value: string) {

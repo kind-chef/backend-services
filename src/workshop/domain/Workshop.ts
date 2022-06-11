@@ -1,16 +1,20 @@
-import Address from 'global/domain/Address'
-import AssetUrl from './AssetUrl'
+import Address from '../../global/domain/Address'
+import AssetUrl from './ImageUrls'
 import Assigned from './Assigned'
 import Capacity from './Capacity'
 import Date from './Date'
 import Description from './Description'
+import Id from './Id'
 import Ingredient from './Ingredient'
 import KeyWord from './Keyword'
 import Name from './Name'
 import Price from './Price'
-import RemainingCapacity from './RemainingCapavity'
+import RemainingCapacity from './RemainingCapacity'
+import ImageUrls from './ImageUrls'
+import VideoUrl from './VideoUrl'
 
 export default class Workshop {
+  private id: Id
   private name: Name
   private description: Description
   private capacity: Capacity
@@ -18,12 +22,14 @@ export default class Workshop {
   private date: Date
   private price: Price
   private keywords: KeyWord[]
-  private ingredients: Ingredient[]
-  private assets: AssetUrl[]
+  private ingredients: Ingredient
+  private imageUrls: ImageUrls
   private address: Address
   private assigned: Assigned
+  private videoUrl: VideoUrl
 
   constructor(
+    id: Id,
     name: Name,
     description: Description,
     capacity: Capacity,
@@ -31,11 +37,13 @@ export default class Workshop {
     date: Date,
     price: Price,
     keywords: KeyWord[],
-    ingredients: Ingredient[],
-    assets: AssetUrl[],
+    ingredients: Ingredient,
+    imageUrls: ImageUrls,
     address: Address,
+    videoUrl: VideoUrl,
     assigned: Assigned
   ) {
+    this.id = id
     this.name = name
     this.description = description
     this.capacity = capacity
@@ -44,9 +52,14 @@ export default class Workshop {
     this.price = price
     this.keywords = keywords
     this.ingredients = ingredients
-    this.assets = assets
+    this.imageUrls = imageUrls
     this.address = address
     this.assigned = assigned
+    this.videoUrl = videoUrl
+  }
+
+  getId(): string {
+    return this.id.getValue()
   }
 
   getName(): string {
@@ -77,12 +90,16 @@ export default class Workshop {
     return this.keywords
   }
 
-  getIngredients(): Ingredient[] {
-    return this.ingredients
+  getKeyWordsStringList(): string[] {
+    return this.keywords.map((item) => item.getValue())
   }
 
-  getAssets(): AssetUrl[] {
-    return this.assets
+  getIngredients(): string {
+    return this.ingredients.getValue()
+  }
+
+  getImageUrls(): string[] {
+    return this.imageUrls.getValue()
   }
 
   getAddress(): Address {
@@ -91,5 +108,9 @@ export default class Workshop {
 
   getAssigned(): Boolean {
     return this.assigned.getValue()
+  }
+
+  getVideoUrl(): string {
+    return this.videoUrl.getValue()
   }
 }

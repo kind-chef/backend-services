@@ -3,6 +3,7 @@ import Kitchen from './kitchens/kitchen/infrastructure/controllers/CreateKitchen
 import getAllKitchens from './kitchens/kitchen/infrastructure/controllers/FindKitchensToApproveController'
 import approveKitchen from './kitchens/kitchen/infrastructure/controllers/ApproveController'
 import registerUser from './users/user/infrastructure/RegisterUserController'
+import insertWorkshop from './workshop/infrastructure/controllers/InsertWorkshopController'
 import login from './users/user/infrastructure/LoginController'
 import { createServer } from 'https'
 import { readFileSync } from 'fs'
@@ -27,6 +28,8 @@ app.get('/getall', getAllKitchens)
 app.get('/kitchen/:kitchenId', findWorkShop)
 
 app.post('/approve-kitchen/:kitchenId', approveKitchen)
+
+app.post('/register-workshop', insertWorkshop)
 
 const server = createServer({ key, cert }, app)
 

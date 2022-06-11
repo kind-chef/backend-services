@@ -1,4 +1,4 @@
-export default class remainingCapacity {
+export default class RemainingCapacity {
   private value: Number
 
   constructor(value: Number) {
