@@ -17,8 +17,8 @@ import Workshop from '../domain/Workshop'
 import WorkshopRepository from '../domain/WorkshopRepository'
 import WriteFyles from '../../global/application/WriteFiles'
 import crypto from 'crypto'
-import VideoUrl from 'workshop/domain/VideoUrl'
-import ImageUrls from 'workshop/domain/ImageUrls'
+import VideoUrl from '../domain/VideoUrl'
+import ImageUrls from '../domain/ImageUrls'
 
 export default class Insert {
   repository: WorkshopRepository
