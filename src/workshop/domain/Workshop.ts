@@ -106,7 +106,7 @@ export default class Workshop {
     return this.address
   }
 
-  getAssigned(): Boolean {
+  getAssigned(): string {
     return this.assigned.getValue()
   }
 

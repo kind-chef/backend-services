@@ -1,11 +1,11 @@
 export default class Assigned {
-  private value: Boolean
+  private value: string
 
-  constructor(value = false) {
+  constructor(value = '') {
     this.value = value
   }
 
-  getValue(): Boolean {
+  getValue(): string {
     return this.value
   }
 }

@@ -16,7 +16,7 @@ interface WorkhopDocument {
   ingredients: string
   images: Types.Array<string>
   videoUrl: string
-  assigned: boolean
+  assigned: string
   city: string
   postalCode: string
   province: string
@@ -34,7 +34,7 @@ const WorkshopSchema = new Schema({
   keywords: { type: [String] },
   ingredients: { type: String },
   images: { type: [String] },
-  assigned: { type: Boolean },
+  assigned: { type: String },
   city: { type: String, required: true },
   postalCode: { type: String, required: true },
   province: { type: String, required: true },
@@ -76,7 +76,7 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
 
   async getUnassignedWorkshops(): Promise<any> {
     await connect(DATABASE_URL)
-    const filter = { assigned: false, date: { $gte: new Date() } }
+    const filter = { assigned: { $ne: null }, date: { $gte: new Date() } }
     const result = await workshopModel.find(filter).select('name description images')
     return Promise.resolve(result)
   }
@@ -87,5 +87,12 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
     const workshop = await workshopModel.findById(workshopId)
     if (!workshop) throw new WorkshopNotFound('item not found')
     return Promise.resolve(workshop)
+  }
+
+  async assign(workshopId: Id, userId: string) {
+    await connect(DATABASE_URL)
+    const filter = { _id: workshopId.getValue() }
+    const update = { assigned: userId }
+    await workshopModel.findOneAndUpdate(filter, update)
   }
 }

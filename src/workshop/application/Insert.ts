@@ -55,7 +55,7 @@ export default class Insert {
         new Province(json.province)
       ),
       new VideoUrl(json.videoUrl),
-      new Assigned(false)
+      new Assigned()
     )
   }
 }
