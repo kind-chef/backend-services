@@ -1,4 +1,4 @@
-import Id from 'kitchens/kitchen/domain/Id'
+import Id from '../domain/Id'
 import Workshop from './Workshop'
 
 export default interface WorkshopRepository {

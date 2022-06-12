@@ -7,10 +7,10 @@ import insertWorkshop from './workshop/infrastructure/controllers/InsertWorkshop
 import login from './users/user/infrastructure/LoginController'
 import { createServer } from 'https'
 import { readFileSync } from 'fs'
-import findWorkShop from './kitchens/kitchen/infrastructure/controllers/FindController'
+import findKitchen from './kitchens/kitchen/infrastructure/controllers/FindController'
 import path from 'path'
 import unassignedWorkshopsController from './workshop/infrastructure/controllers/UnassignedWorkshopsController'
-
+import findWorkshop from './workshop/infrastructure/controllers/FindWorkshopController'
 const port = 8090
 const app = express()
 app.use(express.json({ limit: '50mb' }))
@@ -27,13 +27,15 @@ app.post('/register-kitchen', Kitchen)
 
 app.get('/getall', getAllKitchens)
 
-app.get('/kitchen/:kitchenId', findWorkShop)
+app.get('/kitchen/:kitchenId', findKitchen)
 
 app.post('/approve-kitchen/:kitchenId', approveKitchen)
 
 app.post('/register-workshop', insertWorkshop)
 
 app.get('/unassigned-workshops', unassignedWorkshopsController)
+
+app.get('/workshop/:workshopId', findWorkshop)
 
 const server = createServer({ key, cert }, app)
 

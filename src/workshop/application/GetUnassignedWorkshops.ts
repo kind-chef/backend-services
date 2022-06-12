@@ -1,4 +1,4 @@
-import WorkshopRepository from 'workshop/domain/WorkshopRepository'
+import WorkshopRepository from '../domain/WorkshopRepository'
 
 export default class GetUnassignedWorkshops {
   private repository: WorkshopRepository

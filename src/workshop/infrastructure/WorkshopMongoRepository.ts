@@ -1,6 +1,8 @@
-import WorkshopRepository from 'workshop/domain/WorkshopRepository'
 import { model, Schema, connect, Types } from 'mongoose'
-import Workshop from 'workshop/domain/Workshop'
+import WorkshopNotFound from '../domain/exceptions/WorkshopNotFound'
+import Id from '../domain/Id'
+import Workshop from '../domain/Workshop'
+import WorkshopRepository from '../domain/WorkshopRepository'
 
 interface WorkhopDocument {
   _id: string
@@ -75,7 +77,15 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
   async getUnassignedWorkshops(): Promise<any> {
     await connect(DATABASE_URL)
     const filter = { assigned: false, date: { $gte: new Date() } }
-    const result = await workshopModel.find(filter)
+    const result = await workshopModel.find(filter).select('name description images')
     return Promise.resolve(result)
+  }
+
+  async find(id: Id): Promise<any> {
+    await connect(DATABASE_URL)
+    const workshopId = id.getValue()
+    const workshop = await workshopModel.findById(workshopId)
+    if (!workshop) throw new WorkshopNotFound('item not found')
+    return Promise.resolve(workshop)
   }
 }
