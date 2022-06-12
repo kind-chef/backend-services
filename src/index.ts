@@ -9,6 +9,8 @@ import { createServer } from 'https'
 import { readFileSync } from 'fs'
 import findWorkShop from './kitchens/kitchen/infrastructure/controllers/FindController'
 import path from 'path'
+import unassignedWorkshopsController from './workshop/infrastructure/controllers/UnassignedWorkshopsController'
+
 const port = 8090
 const app = express()
 app.use(express.json({ limit: '50mb' }))
@@ -30,6 +32,8 @@ app.get('/kitchen/:kitchenId', findWorkShop)
 app.post('/approve-kitchen/:kitchenId', approveKitchen)
 
 app.post('/register-workshop', insertWorkshop)
+
+app.get('/unassigned-workshops', unassignedWorkshopsController)
 
 const server = createServer({ key, cert }, app)
 

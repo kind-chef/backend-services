@@ -14,6 +14,7 @@ import fs from 'fs'
 import ImageUrls from '../domain/ImageUrls'
 import Email from '../domain/Email'
 import PhoneNumber from '../domain/PhoneNumber'
+import writeFyles from '../../../global/application/WriteFiles'
 export default class CreateKitchen {
   private KitchenRepository: KitchenRepository
 
@@ -23,17 +24,9 @@ export default class CreateKitchen {
 
   async createKitchen(requestBody: any, mailEventManager: MailEventManager) {
     console.log(requestBody)
-    await this.saveFiles(requestBody.images)
+    const writer = new writeFyles()
+    await writer.execute(requestBody.images)
     await this.registerKitchen(requestBody, mailEventManager)
-  }
-
-  private async saveFiles(files: any[]) {
-    let directory = '/kind-chef/src/assets'
-    files.forEach(async (file) => {
-      let encodedString = file.content.split(',')[1]
-      const fileContents = Buffer.from(encodedString, 'base64')
-      fs.writeFileSync(`${directory}/${file.name}`, fileContents)
-    })
   }
 
   private async registerKitchen(requestBody: any, mailEventManager: MailEventManager) {

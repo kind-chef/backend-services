@@ -47,7 +47,6 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
   async insert(workshop: Workshop): Promise<Boolean> {
     await connect(DATABASE_URL)
     const document = this.parseWorkshopToDocument(workshop)
-    console.log('this is the workshop ---> ', workshop)
     const result = await document.save()
     return !!result
   }
@@ -71,5 +70,12 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
       street: workshop.getAddress().getStreet(),
       videoUrl: workshop.getVideoUrl()
     })
+  }
+
+  async getUnassignedWorkshops(): Promise<any> {
+    await connect(DATABASE_URL)
+    const filter = { assigned: false, date: { $gte: new Date() } }
+    const result = await workshopModel.find(filter)
+    return Promise.resolve(result)
   }
 }
