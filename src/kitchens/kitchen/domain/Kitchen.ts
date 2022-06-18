@@ -1,10 +1,6 @@
-import Address from './Street'
+import Address from '../../../global/domain/Address'
 import Capacity from './Capacity'
-import City from './City'
 import Name from './Name'
-import PostalCode from './PostalCode'
-import Province from './Province'
-import Street from './Street'
 import Id from './Id'
 import Approved from './Approved'
 import ImageUrls from './ImageUrls'
@@ -13,34 +9,26 @@ import PhoneNumber from './PhoneNumber'
 
 export default class Kitchen {
   private capacity: Capacity
-  private street: Street
-  private city: City
-  private postCode: PostalCode
-  private province: Province
+  private address: Address
   private name: Name
   private id: Id
   private approved: Approved
   private images: ImageUrls
   private email: Email
   private phoneNumber: PhoneNumber
+
   constructor(
     id: Id,
     name: Name,
     email: Email,
     phoneNumber: PhoneNumber,
-    street: Street,
-    city: City,
-    postCode: PostalCode,
-    province: Province,
+    address: Address,
     capacity: Capacity,
     images: ImageUrls,
     approved: Approved = new Approved(false)
   ) {
     this.capacity = capacity
-    this.street = street
-    this.city = city
-    this.postCode = postCode
-    this.province = province
+    this.address = address
     this.name = name
     this.id = id
     ;(this.email = email), (this.phoneNumber = phoneNumber), (this.approved = approved)
@@ -63,22 +51,6 @@ export default class Kitchen {
     return this.phoneNumber.getValue()
   }
 
-  public getProvince() {
-    return this.province.getValue()
-  }
-
-  public getPostalCode() {
-    return this.postCode.getValue()
-  }
-
-  public getCity() {
-    return this.city.getValue()
-  }
-
-  public getStreet() {
-    return this.street.getValue()
-  }
-
   public getCapacity() {
     return this.capacity.getValue()
   }
@@ -89,5 +61,9 @@ export default class Kitchen {
 
   public getImages() {
     return this.images.getValue()
+  }
+
+  public getAddress(): Address {
+    return this.address
   }
 }
