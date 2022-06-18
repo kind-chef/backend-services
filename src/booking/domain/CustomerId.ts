@@ -1,4 +1,4 @@
-export default class customerId {
+export default class CustomerId {
   private value: string
 
   constructor(value: string) {

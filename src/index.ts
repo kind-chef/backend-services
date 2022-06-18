@@ -12,6 +12,8 @@ import path from 'path'
 import unassignedWorkshopsController from './workshop/infrastructure/controllers/UnassignedWorkshopsController'
 import findWorkshop from './workshop/infrastructure/controllers/FindWorkshopController'
 import assignWorkshop from './workshop/infrastructure/controllers/AssignWorkshopController'
+import insertBooking from './booking/infrastructure/InsertBookingController'
+
 const port = 8090
 const app = express()
 app.use(express.json({ limit: '50mb' }))
@@ -39,6 +41,8 @@ app.get('/unassigned-workshops', unassignedWorkshopsController)
 app.get('/workshop/:workshopId', findWorkshop)
 
 app.post('/assign-workshop', assignWorkshop)
+
+app.post('/register-booking', insertBooking)
 
 const server = createServer({ key, cert }, app)
 

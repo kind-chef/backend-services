@@ -84,9 +84,12 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
   async find(id: Id): Promise<any> {
     await connect(DATABASE_URL)
     const workshopId = id.getValue()
-    const workshop = await workshopModel.findById(workshopId)
-    if (!workshop) throw new WorkshopNotFound('item not found')
-    return Promise.resolve(workshop)
+    try {
+      const workshop = await workshopModel.findById(workshopId)
+      return Promise.resolve(workshop)
+    } catch (e: any) {
+      throw new WorkshopNotFound(e.message)
+    }
   }
 
   async assign(workshopId: Id, userId: string) {
