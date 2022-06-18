@@ -1,6 +1,7 @@
 import { model, Schema, connect, Types } from 'mongoose'
 import WorkshopNotFound from '../domain/exceptions/WorkshopNotFound'
 import Id from '../domain/Id'
+import RemainingCapacity from '../domain/RemainingCapacity'
 import Workshop from '../domain/Workshop'
 import WorkshopRepository from '../domain/WorkshopRepository'
 
@@ -96,6 +97,13 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
     await connect(DATABASE_URL)
     const filter = { _id: workshopId.getValue() }
     const update = { assigned: userId }
+    await workshopModel.findOneAndUpdate(filter, update)
+  }
+
+  async updateCapacity(workshopId: Id, remainingCapacity: RemainingCapacity): Promise<void> {
+    await connect(DATABASE_URL)
+    const filter = { _id: workshopId.getValue() }
+    const update = { remainingCapacity: remainingCapacity.getValue() }
     await workshopModel.findOneAndUpdate(filter, update)
   }
 }
