@@ -5,11 +5,35 @@ services:
     build: .
     container_name: 'kind-chef'
     ports:
-        - 8090:8090
+      - 8090:8090
     expose:
       - 8090
     networks:
       - kind_network
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  rabbitmq:
+    build: ./rabbitmq/
+    container_name: 'rabbitmq'
+    ports:
+      - 5672:5672
+      - 15672:15672
+    expose:
+      - 5672
+      - 15672
+    networks:
+      - kind_network
+    environment:
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_VHOST: user
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:15672']
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   mongoroot:
     image: mongo:5.0.6-focal
@@ -17,7 +41,7 @@ services:
     ports:
       - 27017:27017
     expose:
-    - 27017
+      - 27017
     volumes:
       - ~/apps/mongo:/data/db
     environment:
