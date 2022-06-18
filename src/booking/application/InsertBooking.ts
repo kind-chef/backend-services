@@ -6,7 +6,7 @@ import Places from '../domain/Places'
 import getWorkshopCapacity from '../domain/services/getWorkshopCapacity'
 import WorkshopId from '../domain/WorkshopId'
 
-export default class Verify {
+export default class InsertBooking {
   private repository: BookingRepository
 
   constructor(repository: BookingRepository) {
@@ -17,6 +17,7 @@ export default class Verify {
     const booking = this.parseBody(requestBody)
     const remainingCapacity = await getWorkshopCapacity(booking)
     if (remainingCapacity < booking.getPlaces()) throw new NotEnoughCapacityException('not enough capacity')
+    await this.repository.save(booking)
   }
 
   private parseBody(requestBody: any): Booking {
