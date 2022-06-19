@@ -77,6 +77,13 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
 
   async getUnassignedWorkshops(): Promise<any> {
     await connect(DATABASE_URL)
+    const filter = { assigned: null, date: { $gte: new Date() } }
+    const result = await workshopModel.find(filter).select('name description images')
+    return Promise.resolve(result)
+  }
+
+  async getActiveWorkshops(): Promise<any> {
+    await connect(DATABASE_URL)
     const filter = { assigned: { $ne: null }, date: { $gte: new Date() } }
     const result = await workshopModel.find(filter).select('name description images')
     return Promise.resolve(result)

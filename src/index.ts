@@ -16,6 +16,7 @@ import insertBooking from './booking/infrastructure/InsertBookingController'
 import updateCapacityOnBookingCreatedSubscriber from './workshop/infrastructure/UpdateCapacityOnBookingCreatedSubscriber'
 import UpdateCapacity from './workshop/application/UpdateCapacity'
 import WorkshopMongoRepository from './workshop/infrastructure/WorkshopMongoRepository'
+import activeWorkshopController from './workshop/infrastructure/controllers/ActiveWorkshopController'
 
 const port = 8090
 const app = express()
@@ -46,6 +47,8 @@ app.get('/workshop/:workshopId', findWorkshop)
 app.post('/assign-workshop', assignWorkshop)
 
 app.post('/register-booking', insertBooking)
+
+app.get('/active-workshops', activeWorkshopController)
 
 updateCapacityOnBookingCreatedSubscriber(new UpdateCapacity(new WorkshopMongoRepository()))
 

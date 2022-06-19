@@ -41,10 +41,12 @@ export default class UserMongoRepository implements UserRepository {
     return 'user registered correctly'
   }
 
-  async login(email: Email, secret: Secret): Promise<Boolean> {
+  async login(email: Email, secret: Secret): Promise<any> {
     await this.connect()
-    const user = await userModel.findOne({ email: email.getValue(), secret: secret.getValue() })
-    return !!user
+    const user = await userModel
+      .findOne({ email: email.getValue(), secret: secret.getValue() })
+      .select('_id email profile')
+    return user
   }
 
   private async connect() {
