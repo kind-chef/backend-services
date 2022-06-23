@@ -8,4 +8,5 @@ export default interface WorkshopRepository {
   find(id: Id): Promise<any>
   assign(workshopId: Id, userId: string): void
   updateCapacity(workshopId: Id, remainingCapacity: RemainingCapacity): void
+  getActiveWorkshops(): Promise<any>
 }
