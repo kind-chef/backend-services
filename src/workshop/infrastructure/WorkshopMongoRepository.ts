@@ -2,8 +2,10 @@ import { model, Schema, connect, Types } from 'mongoose'
 import WorkshopNotFound from '../domain/exceptions/WorkshopNotFound'
 import Id from '../domain/Id'
 import RemainingCapacity from '../domain/RemainingCapacity'
+import UserId from '../domain/UserId'
 import Workshop from '../domain/Workshop'
 import WorkshopRepository from '../domain/WorkshopRepository'
+import BookingService from './BookingService'
 
 interface WorkhopDocument {
   _id: string
@@ -89,11 +91,22 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
     return Promise.resolve(result)
   }
 
-  async find(id: Id): Promise<any> {
+  async search(id: Array<Id>): Promise<any> {
     await connect(DATABASE_URL)
-    const workshopId = id.getValue()
+    const ids = id.map((value: Id) => value.getValue())
     try {
-      const workshop = await workshopModel.findById(workshopId)
+      const filter = { _id: { $in: ids } }
+      const workshop = await workshopModel.find(filter)
+      return Promise.resolve(workshop)
+    } catch (e: any) {
+      throw new WorkshopNotFound(e.message)
+    }
+  }
+
+  async find(id: Id) {
+    await connect(DATABASE_URL)
+    try {
+      const workshop = await workshopModel.findById(id.getValue())
       return Promise.resolve(workshop)
     } catch (e: any) {
       throw new WorkshopNotFound(e.message)
@@ -112,5 +125,14 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
     const filter = { _id: workshopId.getValue() }
     const update = { remainingCapacity: remainingCapacity.getValue() }
     await workshopModel.findOneAndUpdate(filter, update)
+  }
+
+  async getBookedWorkshops(userId: UserId): Promise<any> {
+    const service = new BookingService()
+    const workshopIds = await service.getBookings(userId)
+    console.log(workshopIds)
+    const result = await this.search(workshopIds)
+    console.log(result)
+    return result
   }
 }
