@@ -12,3 +12,9 @@ jobs:
 
       - name: Execute linter
         run: yarn run eslint . --ext .ts
+
+      - name: setup services
+        run: docker compose up --build
+
+      - name: Run tests
+        run: npm run test
