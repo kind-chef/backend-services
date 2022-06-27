@@ -20,9 +20,15 @@ import bookedWorkshopController from './workshop/infrastructure/controllers/Book
 import cors from 'cors'
 
 const allowedOrigins = ['127.0.0.1:8090', '127.0.0.1:3000', 'http://localhost:3000', 'http://localhost:8090']
+
 const options: cors.CorsOptions = {
-  origin: allowedOrigins
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token'],
+  credentials: true,
+  methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+  origin: allowedOrigins,
+  preflightContinue: false
 }
+
 const port = 8090
 const app = express()
 app.use(cors(options))
