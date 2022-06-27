@@ -19,6 +19,7 @@ jobs:
       - name: Sleep for 60 seconds
         run: sleep 60s
         shell: bash
-
-      - name: Run tests
-        run: npm run test
+      - name: ping
+        run: curl http://localhost:8090/unassigned-workshops
+      #- name: Run tests
+      #run: npm run test
