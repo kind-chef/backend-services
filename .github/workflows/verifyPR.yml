@@ -1,6 +1,6 @@
 on:
   pull_request:
-    types: [opened, reopened]
+
 jobs:
   integration-and-delivery:
     runs-on: ubuntu-latest
