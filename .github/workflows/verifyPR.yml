@@ -16,5 +16,9 @@ jobs:
       - name: Execute linter
         run: yarn run eslint . --ext .ts
 
+      - name: Sleep for 60 seconds
+        run: sleep 60s
+        shell: bash
+
       - name: Run tests
-        run: npm run test
+        run: docker exec kind-chef npm run test
