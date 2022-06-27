@@ -5,6 +5,9 @@ jobs:
   integration-and-delivery:
     runs-on: ubuntu-latest
     steps:
+      - name: setup services
+        run: docker compose up -d --build
+
       - uses: actions/checkout@v2
 
       - name: Prepare environment
@@ -12,9 +15,6 @@ jobs:
 
       - name: Execute linter
         run: yarn run eslint . --ext .ts
-
-      - name: setup services
-        run: docker compose up -d --build
 
       - name: Run tests
         run: docker exec kind-chef npm run test
