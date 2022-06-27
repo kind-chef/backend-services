@@ -14,6 +14,7 @@ async function createWorkShop(req: express.Request, res: express.Response) {
     await createKitchenUseCase.createKitchen(req.body, mailEventManager)
     res.send('Kitchen inserted correctly')
   } catch (error: any) {
+    res.status(400)
     res.send(error.message)
   }
 }

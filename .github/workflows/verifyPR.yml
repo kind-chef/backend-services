@@ -16,9 +16,5 @@ jobs:
       - name: Execute linter
         run: yarn run eslint . --ext .ts
 
-      - name: Sleep for 30 seconds
-        run: sleep 90s
-        shell: bash
-
       - name: Run tests
         run: npm run test
