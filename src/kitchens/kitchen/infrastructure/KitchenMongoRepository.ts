@@ -12,7 +12,7 @@ import Id from '../domain/Id'
 import KitchenNotFoundException from '../domain/Exceptions/KitchenNotFoundException'
 import ImageUrls from '../domain/ImageUrls'
 import Email from '../domain/Email'
-import PhoneNumber from '../domain/PhoneNumber'
+import Phonenumber from '../domain/Phonenumber'
 
 interface KitchenDocument {
   _id: string
@@ -25,21 +25,21 @@ interface KitchenDocument {
   images: Types.Array<string>
   approved: boolean
   email: string
-  phoneNumber: string
+  phonenumber: string
 }
 
 const KitchenSchema = new Schema({
-  _id: { type: String, required: true },
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  phoneNumber: { type: String, required: true },
-  capacity: { type: Number },
-  city: { type: String },
-  postalCode: { type: String },
-  province: { type: String },
-  street: { type: String },
-  images: [String],
-  approved: { type: Boolean }
+  _id: { type: string, required: true },
+  name: { type: string, required: true },
+  email: { type: string, required: true },
+  phonenumber: { type: string, required: true },
+  capacity: { type: number },
+  city: { type: string },
+  postalCode: { type: string },
+  province: { type: string },
+  street: { type: string },
+  images: [string],
+  approved: { type: boolean }
 })
 
 const kitchenModel = model<KitchenDocument>('Kitchen', KitchenSchema)
@@ -64,7 +64,7 @@ export default class KitchenMongoRepository implements KitchenRepository {
       _id: kitchen.getId(),
       name: kitchen.getName(),
       email: kitchen.getEmail(),
-      phoneNumber: kitchen.getPhoneNumber(),
+      phonenumber: kitchen.getPhonenumber(),
       capacity: kitchen.getCapacity(),
       city: kitchen.getAddress().getCity(),
       postalCode: kitchen.getAddress().getPostalCode(),
@@ -100,19 +100,19 @@ export default class KitchenMongoRepository implements KitchenRepository {
       new Id(String(kitchenDocument._id)),
       new Name(String(kitchenDocument.name)),
       new Email(String(kitchenDocument.email)),
-      new PhoneNumber(String(kitchenDocument.phoneNumber)),
+      new Phonenumber(String(kitchenDocument.phonenumber)),
       new Address(
         new Street(String(kitchenDocument.street)),
         new City(String(kitchenDocument.city)),
         new PostalCode(String(kitchenDocument.postalCode)),
         new Province(String(kitchenDocument.province))
       ),
-      new Capacity(Number(kitchenDocument.capacity)),
+      new Capacity(number(kitchenDocument.capacity)),
       new ImageUrls(kitchenDocument.images)
     )
   }
 
-  async approve(id: Id): Promise<Boolean> {
+  async approve(id: Id): Promise<boolean> {
     await connect(DATABASE_URL)
     const filter = { _id: id.getValue() }
     const update = { approved: true }

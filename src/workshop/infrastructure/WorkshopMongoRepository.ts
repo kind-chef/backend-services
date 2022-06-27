@@ -27,29 +27,29 @@ interface WorkhopDocument {
 }
 
 const WorkshopSchema = new Schema({
-  _id: { type: String, required: true },
-  name: { type: String, required: true },
-  description: { type: String },
-  capacity: { type: Number, required: true },
-  remainingCapacity: { type: Number, required: true },
+  _id: { type: string, required: true },
+  name: { type: string, required: true },
+  description: { type: string },
+  capacity: { type: number, required: true },
+  remainingCapacity: { type: number, required: true },
   date: { type: Date, required: true },
-  price: { type: Number },
-  keywords: { type: [String] },
-  ingredients: { type: String },
-  images: { type: [String] },
-  assigned: { type: String },
-  city: { type: String, required: true },
-  postalCode: { type: String, required: true },
-  province: { type: String, required: true },
-  street: { type: String, required: true },
-  videoUrl: { type: String }
+  price: { type: number },
+  keywords: { type: [string] },
+  ingredients: { type: string },
+  images: { type: [string] },
+  assigned: { type: string },
+  city: { type: string, required: true },
+  postalCode: { type: string, required: true },
+  province: { type: string, required: true },
+  street: { type: string, required: true },
+  videoUrl: { type: string }
 })
 
 const workshopModel = model<WorkhopDocument>('workshop', WorkshopSchema)
 const DATABASE_URL = 'mongodb://kindchef:S3cret@mongo:27017/test?authSource=admin&w=1'
 
 export default class WorkshopMongoRepository implements WorkshopRepository {
-  async insert(workshop: Workshop): Promise<Boolean> {
+  async insert(workshop: Workshop): Promise<boolean> {
     await connect(DATABASE_URL)
     const document = this.parseWorkshopToDocument(workshop)
     const result = await document.save()
@@ -65,7 +65,7 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
       remainingCapacity: workshop.getRemainingCapacity(),
       date: workshop.getDate(),
       price: workshop.getPrice(),
-      keywords: workshop.getKeyWordsStringList(),
+      keywords: workshop.getKeyWordsstringList(),
       ingredients: workshop.getIngredients(),
       images: workshop.getImageUrls(),
       assigned: workshop.getAssigned(),

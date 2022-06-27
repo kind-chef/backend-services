@@ -4,7 +4,7 @@ import UserId from './UserId'
 import Workshop from './Workshop'
 
 export default interface WorkshopRepository {
-  insert(workshop: Workshop): Promise<Boolean>
+  insert(workshop: Workshop): Promise<boolean>
   getUnassignedWorkshops(): Promise<any>
   search(ids: Array<Id>): Promise<any>
   find(id: Id): Promise<any>

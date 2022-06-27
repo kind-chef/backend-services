@@ -8,7 +8,7 @@ export default class Approve {
     this.repository = repository
   }
 
-  public async execute(request: any): Promise<Boolean> {
+  public async execute(request: any): Promise<boolean> {
     const id = new Id(request.params.kitchenId)
     return await this.repository.approve(id)
   }

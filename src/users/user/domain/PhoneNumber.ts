@@ -1,21 +1,21 @@
-export default class PhoneNumber {
+export default class Phonenumber {
   private value: string
 
-  constructor(phoneNumber: string) {
-    this.setValue(phoneNumber)
+  constructor(phonenumber: string) {
+    this.setValue(phonenumber)
   }
 
   public getValue(): string {
     return this.value
   }
 
-  public setValue(phoneNumber: string) {
-    if (!this.validate(phoneNumber)) return
-    this.value = phoneNumber
+  public setValue(phonenumber: string) {
+    if (!this.validate(phonenumber)) return
+    this.value = phonenumber
   }
 
-  private validate(phoneNumber: any): Boolean {
-    if (!phoneNumber) return false
-    return new RegExp(/^\d+$/).test(phoneNumber)
+  private validate(phonenumber: any): boolean {
+    if (!phonenumber) return false
+    return new RegExp(/^\d+$/).test(phonenumber)
   }
 }

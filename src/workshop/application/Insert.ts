@@ -27,7 +27,7 @@ export default class Insert {
     this.repository = repository
   }
 
-  public async execute(requestBody: any): Promise<Boolean> {
+  public async execute(requestBody: any): Promise<boolean> {
     console.log(requestBody)
     const writer = new WriteFyles()
     writer.execute(requestBody.images)

@@ -70,11 +70,11 @@ export default class Workshop {
     return this.description.getValue()
   }
 
-  getCapacity(): Number {
+  getCapacity(): number {
     return this.capacity.getValue()
   }
 
-  getRemainingCapacity(): Number {
+  getRemainingCapacity(): number {
     return this.remainingCapacity.getValue()
   }
 
@@ -82,7 +82,7 @@ export default class Workshop {
     return this.date.getValue()
   }
 
-  getPrice(): Number {
+  getPrice(): number {
     return this.price.getValue()
   }
 
@@ -90,7 +90,7 @@ export default class Workshop {
     return this.keywords
   }
 
-  getKeyWordsStringList(): string[] {
+  getKeyWordsstringList(): string[] {
     return this.keywords.map((item) => item.getValue())
   }
 

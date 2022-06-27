@@ -1,11 +1,11 @@
 export default class Id {
-  private value: String
+  private value: string
 
-  constructor(value: String) {
+  constructor(value: string) {
     this.value = value
   }
 
-  public getValue(): String {
+  public getValue(): string {
     return this.value
   }
 }

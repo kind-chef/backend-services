@@ -13,7 +13,7 @@ import crypto from 'crypto'
 import fs from 'fs'
 import ImageUrls from '../domain/ImageUrls'
 import Email from '../domain/Email'
-import PhoneNumber from '../domain/PhoneNumber'
+import Phonenumber from '../domain/Phonenumber'
 import writeFyles from '../../../global/application/WriteFiles'
 export default class CreateKitchen {
   private KitchenRepository: KitchenRepository
@@ -41,9 +41,9 @@ export default class CreateKitchen {
       new Id(crypto.randomUUID()),
       new Name(String(requestBody.name)),
       new Email(String(requestBody.email)),
-      new PhoneNumber(String(requestBody.phoneNumber)),
+      new Phonenumber(String(requestBody.phonenumber)),
       address,
-      new Capacity(Number(requestBody.capacity)),
+      new Capacity(number(requestBody.capacity)),
       new ImageUrls(urls)
     )
     await this.KitchenRepository.save(kitchen)

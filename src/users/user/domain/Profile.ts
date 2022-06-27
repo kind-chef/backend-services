@@ -14,7 +14,7 @@ export default class Profile {
     this.value = profile
   }
 
-  private validate(profile: string): Boolean {
+  private validate(profile: string): boolean {
     return true
   }
 }
