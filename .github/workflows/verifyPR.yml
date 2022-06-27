@@ -5,10 +5,10 @@ jobs:
   integration-and-delivery:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+
       - name: setup services
         run: docker compose up -d --build
-
-      - uses: actions/checkout@v2
 
       - name: Prepare environment
         run: npm install
