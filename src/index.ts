@@ -17,16 +17,17 @@ import WorkshopMongoRepository from './workshop/infrastructure/WorkshopMongoRepo
 import activeWorkshopController from './workshop/infrastructure/controllers/ActiveWorkshopController'
 import getBookingsController from './booking/infrastructure/GetBookingsController'
 import bookedWorkshopController from './workshop/infrastructure/controllers/BookedWorshopController'
+import cors from 'cors'
 
+const allowedOrigins = ['127.0.0.1:8090', '127.0.0.1:3000', 'http://localhost:3000', 'http://localhost:8090']
+const options: cors.CorsOptions = {
+  origin: allowedOrigins
+}
 const port = 8090
 const app = express()
+app.use(cors(options))
 app.use(express.json({ limit: '50mb' }))
 app.use(express.static(path.join(__dirname, 'assets')))
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'YOUR-DOMAIN.TLD') // update to match the domain you will make the request from
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  next()
-})
 app.post('/register-user', registerUser)
 
 app.post('/login', login)
