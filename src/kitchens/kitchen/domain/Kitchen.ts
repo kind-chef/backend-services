@@ -5,7 +5,7 @@ import Id from './Id'
 import Approved from './Approved'
 import ImageUrls from './ImageUrls'
 import Email from './Email'
-import Phonenumber from './Phonenumber'
+import PhoneNumber from './PhoneNumber'
 
 export default class Kitchen {
   private capacity: Capacity
@@ -15,13 +15,13 @@ export default class Kitchen {
   private approved: Approved
   private images: ImageUrls
   private email: Email
-  private phonenumber: Phonenumber
+  private phonenumber: PhoneNumber
 
   constructor(
     id: Id,
     name: Name,
     email: Email,
-    phonenumber: Phonenumber,
+    phonenumber: PhoneNumber,
     address: Address,
     capacity: Capacity,
     images: ImageUrls,
@@ -47,7 +47,7 @@ export default class Kitchen {
     return this.email.getValue()
   }
 
-  public getPhonenumber() {
+  public getPhoneNumber() {
     return this.phonenumber.getValue()
   }
 

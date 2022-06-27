@@ -27,22 +27,22 @@ interface WorkhopDocument {
 }
 
 const WorkshopSchema = new Schema({
-  _id: { type: string, required: true },
-  name: { type: string, required: true },
-  description: { type: string },
-  capacity: { type: number, required: true },
-  remainingCapacity: { type: number, required: true },
+  _id: { type: String, required: true },
+  name: { type: String, required: true },
+  description: { type: String },
+  capacity: { type: Number, required: true },
+  remainingCapacity: { type: Number, required: true },
   date: { type: Date, required: true },
-  price: { type: number },
-  keywords: { type: [string] },
-  ingredients: { type: string },
-  images: { type: [string] },
-  assigned: { type: string },
-  city: { type: string, required: true },
-  postalCode: { type: string, required: true },
-  province: { type: string, required: true },
-  street: { type: string, required: true },
-  videoUrl: { type: string }
+  price: { type: Number },
+  keywords: { type: [String] },
+  ingredients: { type: String },
+  images: { type: [String] },
+  assigned: { type: String },
+  city: { type: String, required: true },
+  postalCode: { type: String, required: true },
+  province: { type: String, required: true },
+  street: { type: String, required: true },
+  videoUrl: { type: String }
 })
 
 const workshopModel = model<WorkhopDocument>('workshop', WorkshopSchema)

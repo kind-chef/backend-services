@@ -1,4 +1,4 @@
-export default class Phonenumber {
+export default class PhoneNumber {
   private value: string
 
   constructor(phonenumber: string) {

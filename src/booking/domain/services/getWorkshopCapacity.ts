@@ -5,11 +5,6 @@ import https from 'https'
 
 export default async function getWorkshopCapacity(booking: Booking): Promise<number> {
   const workshopId = booking.getWorkshopId()
-  const instance = axios.create({
-    httpsAgent: new https.Agent({
-      rejectUnauthorized: false
-    })
-  })
-  const callout: any = await instance.get(`https://localhost:8090/workshop/${workshopId}`)
+  const callout: any = await axios.get(`http://localhost:8090/workshop/${workshopId}`)
   return callout.data.capacity
 }

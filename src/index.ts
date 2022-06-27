@@ -5,8 +5,6 @@ import approveKitchen from './kitchens/kitchen/infrastructure/controllers/Approv
 import registerUser from './users/user/infrastructure/RegisterUserController'
 import insertWorkshop from './workshop/infrastructure/controllers/InsertWorkshopController'
 import login from './users/user/infrastructure/LoginController'
-import { createServer } from 'https'
-import { readFileSync } from 'fs'
 import findKitchen from './kitchens/kitchen/infrastructure/controllers/FindController'
 import path from 'path'
 import unassignedWorkshopsController from './workshop/infrastructure/controllers/UnassignedWorkshopsController'
@@ -24,9 +22,6 @@ const port = 8090
 const app = express()
 app.use(express.json({ limit: '50mb' }))
 app.use(express.static(path.join(__dirname, 'assets')))
-
-const key = readFileSync('./certificates/keyrsa.pem')
-const cert = readFileSync('./certificates/cert.pem')
 
 app.post('/registerUser', registerUser)
 
@@ -58,8 +53,6 @@ app.get('/booked-workshop/:userId', bookedWorkshopController)
 
 updateCapacityOnBookingCreatedSubscriber(new UpdateCapacity(new WorkshopMongoRepository()))
 
-const server = createServer({ key, cert }, app)
-
-server.listen(8090, () => {
+app.listen(8090, () => {
   console.log('Server is listening on port ' + port)
 })

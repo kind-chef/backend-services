@@ -14,12 +14,12 @@ interface UserDocument {
 }
 
 const userSchema = new Schema({
-  email: { type: string, required: true, unique: true },
-  firstName: { type: string },
-  lastName: { type: string, required: true },
-  phonenumber: { type: string },
-  profile: { type: string, required: true },
-  secret: { type: string, required: true }
+  email: { type: String, required: true, unique: true },
+  firstName: { type: String },
+  lastName: { type: String, required: true },
+  phonenumber: { type: String },
+  profile: { type: String, required: true },
+  secret: { type: String, required: true }
 })
 
 const userModel = model<UserDocument>('Users', userSchema)
@@ -31,7 +31,7 @@ export default class UserMongoRepository implements UserRepository {
       email: user.getEmail(),
       firstName: user.getFirstName(),
       lastName: user.getLastName(),
-      phonenumber: user.getPhonenumber(),
+      phonenumber: user.getPhoneNumber(),
       profile: user.getProfile(),
       secret: user.getSecret()
     })

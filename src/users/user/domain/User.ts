@@ -1,7 +1,7 @@
 import Email from './Email'
 import FirstName from './FirstName'
 import LastName from './LastName'
-import Phonenumber from './Phonenumber'
+import PhoneNumber from './PhoneNumber'
 import Profile from './Profile'
 import Secret from './Secret'
 
@@ -9,7 +9,7 @@ export default class User {
   private email: Email
   private firstName: FirstName
   private lastName: LastName
-  private phonenumber: Phonenumber
+  private phonenumber: PhoneNumber
   private profile: Profile
   private secret: Secret
 
@@ -17,7 +17,7 @@ export default class User {
     email: Email,
     firstName: FirstName,
     lastName: LastName,
-    phonenumber: Phonenumber,
+    phonenumber: PhoneNumber,
     profile: Profile,
     secret: Secret
   ) {
@@ -41,7 +41,7 @@ export default class User {
     return this.lastName.getValue()
   }
 
-  getPhonenumber(): string {
+  getPhoneNumber(): string {
     return this.phonenumber.getValue()
   }
 

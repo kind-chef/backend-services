@@ -1,7 +1,7 @@
 import Email from '../domain/Email'
 import FirstName from '../domain/FirstName'
 import LastName from '../domain/LastName'
-import Phonenumber from '../domain/Phonenumber'
+import PhoneNumber from '../domain/PhoneNumber'
 import Profile from '../domain/Profile'
 import Secret from '../domain/Secret'
 import User from '../domain/User'
@@ -18,7 +18,7 @@ export default class RegisterUser {
     const email = new Email(request.email)
     const firstName = new FirstName(request.firstName)
     const lastName = new LastName(request.lastName)
-    const phonenumber = new Phonenumber(request.phonenumber)
+    const phonenumber = new PhoneNumber(request.phonenumber)
     const profile = new Profile(request.profile)
     const secret = new Secret(request.secret)
     const user = new User(email, firstName, lastName, phonenumber, profile, secret)

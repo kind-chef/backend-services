@@ -9,9 +9,9 @@ interface BookingDocument {
 }
 
 const BookingSchema = new Schema({
-  customer_id: { type: string, required: true },
-  workshop_id: { type: string, required: true },
-  places: { type: number, required: true }
+  customer_id: { type: String, required: true },
+  workshop_id: { type: String, required: true },
+  places: { type: Number, required: true }
 })
 
 const bookingModel = model<BookingDocument>('booking', BookingSchema)

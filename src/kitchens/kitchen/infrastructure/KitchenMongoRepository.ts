@@ -12,7 +12,7 @@ import Id from '../domain/Id'
 import KitchenNotFoundException from '../domain/Exceptions/KitchenNotFoundException'
 import ImageUrls from '../domain/ImageUrls'
 import Email from '../domain/Email'
-import Phonenumber from '../domain/Phonenumber'
+import PhoneNumber from '../domain/PhoneNumber'
 
 interface KitchenDocument {
   _id: string
@@ -29,17 +29,17 @@ interface KitchenDocument {
 }
 
 const KitchenSchema = new Schema({
-  _id: { type: string, required: true },
-  name: { type: string, required: true },
-  email: { type: string, required: true },
-  phonenumber: { type: string, required: true },
-  capacity: { type: number },
-  city: { type: string },
-  postalCode: { type: string },
-  province: { type: string },
-  street: { type: string },
-  images: [string],
-  approved: { type: boolean }
+  _id: { type: String, required: true },
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  phonenumber: { type: String, required: true },
+  capacity: { type: Number },
+  city: { type: String },
+  postalCode: { type: String },
+  province: { type: String },
+  street: { type: String },
+  images: [String],
+  approved: { type: Boolean }
 })
 
 const kitchenModel = model<KitchenDocument>('Kitchen', KitchenSchema)
@@ -64,7 +64,7 @@ export default class KitchenMongoRepository implements KitchenRepository {
       _id: kitchen.getId(),
       name: kitchen.getName(),
       email: kitchen.getEmail(),
-      phonenumber: kitchen.getPhonenumber(),
+      phonenumber: kitchen.getPhoneNumber(),
       capacity: kitchen.getCapacity(),
       city: kitchen.getAddress().getCity(),
       postalCode: kitchen.getAddress().getPostalCode(),
@@ -100,14 +100,14 @@ export default class KitchenMongoRepository implements KitchenRepository {
       new Id(String(kitchenDocument._id)),
       new Name(String(kitchenDocument.name)),
       new Email(String(kitchenDocument.email)),
-      new Phonenumber(String(kitchenDocument.phonenumber)),
+      new PhoneNumber(String(kitchenDocument.phonenumber)),
       new Address(
         new Street(String(kitchenDocument.street)),
         new City(String(kitchenDocument.city)),
         new PostalCode(String(kitchenDocument.postalCode)),
         new Province(String(kitchenDocument.province))
       ),
-      new Capacity(number(kitchenDocument.capacity)),
+      new Capacity(Number(kitchenDocument.capacity)),
       new ImageUrls(kitchenDocument.images)
     )
   }

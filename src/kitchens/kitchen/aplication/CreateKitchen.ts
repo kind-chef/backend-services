@@ -13,7 +13,7 @@ import crypto from 'crypto'
 import fs from 'fs'
 import ImageUrls from '../domain/ImageUrls'
 import Email from '../domain/Email'
-import Phonenumber from '../domain/Phonenumber'
+import PhoneNumber from '../domain/PhoneNumber'
 import writeFyles from '../../../global/application/WriteFiles'
 export default class CreateKitchen {
   private KitchenRepository: KitchenRepository
@@ -30,7 +30,7 @@ export default class CreateKitchen {
   }
 
   private async registerKitchen(requestBody: any, mailEventManager: MailEventManager) {
-    const urls = requestBody.images.map((image: any) => String(`https://localhost:8090/${image.name}`))
+    const urls = requestBody.images.map((image: any) => String(`http://localhost:8090/${image.name}`))
     const address = new Address(
       new Street(String(requestBody.street)),
       new City(String(requestBody.city)),
@@ -41,9 +41,9 @@ export default class CreateKitchen {
       new Id(crypto.randomUUID()),
       new Name(String(requestBody.name)),
       new Email(String(requestBody.email)),
-      new Phonenumber(String(requestBody.phonenumber)),
+      new PhoneNumber(String(requestBody.phoneNumber)),
       address,
-      new Capacity(number(requestBody.capacity)),
+      new Capacity(Number(requestBody.capacity)),
       new ImageUrls(urls)
     )
     await this.KitchenRepository.save(kitchen)

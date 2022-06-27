@@ -47,7 +47,7 @@ export default class Insert {
       new Price(json.price),
       keywords,
       new Ingredient(json.ingredients),
-      new ImageUrls(json.images.map((image: any) => String(`https://localhost:8090/${image.name}`))),
+      new ImageUrls(json.images.map((image: any) => String(`http://localhost:8090/${image.name}`))),
       new Address(
         new Street(json.street),
         new City(json.city),

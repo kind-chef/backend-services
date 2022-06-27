@@ -3,11 +3,6 @@ import https from 'https'
 
 describe('Create Kitchen', () => {
   it('should create a kitchend', async () => {
-    const instance = axios.create({
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false
-      })
-    })
     const kitchen = {
       name: 'Random Kitchen',
       street: 'Random',
@@ -16,7 +11,7 @@ describe('Create Kitchen', () => {
       postalCode: '01223',
       capacity: 100
     }
-    const callout: any = await instance.post(`https://localhost:8090/register-kitchen`, kitchen)
+    const callout: any = await axios.post(`http://localhost:8090/register-kitchen`, kitchen)
     expect(callout.statusCode == 200)
   })
 })
