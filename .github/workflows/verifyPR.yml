@@ -21,4 +21,4 @@ jobs:
         shell: bash
 
       - name: Run tests
-        run: docker exec kind-chef npm run test
+        run: npm run test
