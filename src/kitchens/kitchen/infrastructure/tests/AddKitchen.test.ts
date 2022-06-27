@@ -9,7 +9,8 @@ describe('Create Kitchen', () => {
       city: 'Random',
       province: 'Random',
       postalCode: '01223',
-      capacity: 100
+      capacity: 100,
+      images: []
     }
     const callout: any = await axios.post(`http://localhost:8090/register-kitchen`, kitchen)
     expect(callout.statusCode == 200)
