@@ -27,4 +27,11 @@ export default class BookingMongoRepository implements BookingRepository {
     })
     await bookingMongo.save()
   }
+
+  async getBookings(userId: string): Promise<any> {
+    await connect(DATABASE_URL)
+    const filter = { customer_id: userId }
+    const result = await bookingModel.find(filter)
+    return result
+  }
 }

@@ -1,5 +1,5 @@
 import InsertBooking from '../application/InsertBooking'
-import express, { response } from 'express'
+import express from 'express'
 import BookingMongoRepository from './BookingMongoRepository'
 
 export default async function insertBookingController(req: express.Request, response: express.Response) {

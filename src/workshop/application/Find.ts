@@ -10,7 +10,6 @@ export default class Find {
 
   public async execute(request: any): Promise<any> {
     const id = new Id(request.params.workshopId)
-    console.log(id)
     return await this.repository.find(id)
   }
 }

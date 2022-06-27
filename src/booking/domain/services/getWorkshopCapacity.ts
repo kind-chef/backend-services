@@ -1,5 +1,5 @@
 import Booking from '../Booking'
-import axios, { AxiosRequestConfig } from 'axios'
+import axios from 'axios'
 import https from 'https'
 // theFileYouDeclaredTheCustomConfigIn.ts
 
