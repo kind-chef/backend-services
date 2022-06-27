@@ -1,5 +1,5 @@
 module.exports = {
-  rootDir: './tests/',
+  rootDir: './src',
 
   testMatch: ['**/?(*.|*-)+(spec|test).+(ts|tsx|js)'],
   coverageDirectory: './coverage/',
