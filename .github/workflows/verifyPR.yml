@@ -18,7 +18,8 @@ jobs:
 
       - name: docker ps
         run: docker ps
-
+      - name: docker log
+        run: docker logs -f --until=2s kind-chef
       - name: curl
         run: curl -v htpp://localhost:8090/unassigned-workshops
       #- name: Run tests//
