@@ -1,20 +1,11 @@
-import Capacity from '../domain/Capacity'
-import Name from '../domain/Name'
 import Kitchen from '../domain/Kitchen'
 import KitchenRepository from '../domain/KitchenRepository'
-import Address from '../../../global/domain/Address'
-import Street from '../../../global/domain/Street'
-import City from '../../../global/domain/City'
-import Province from '../../../global/domain/Province'
-import PostalCode from '../../../global/domain/PostalCode'
-import MailEventManager from '../domain/MailEventManager'
-import Id from '../domain/Id'
-import crypto from 'crypto'
-import fs from 'fs'
-import ImageUrls from '../domain/ImageUrls'
-import Email from '../domain/Email'
-import PhoneNumber from '../domain/PhoneNumber'
 import writeFyles from '../../../global/application/WriteFiles'
+import KitchenCreatedEvent from '../domain/KitchenCreatedEvent'
+import RabbitMqEventPublisher from '../../../global/application/RabbitMqEventPublisher'
+import ParseJSONToKitchen from './Parsers/ParseJSONToKitchen'
+
+const QUEUE_NAME = 'notify_kitchen_created'
 export default class CreateKitchen {
   private KitchenRepository: KitchenRepository
 
@@ -22,31 +13,26 @@ export default class CreateKitchen {
     this.KitchenRepository = KitchenRepository
   }
 
-  async createKitchen(requestBody: any, mailEventManager: MailEventManager) {
-    console.log(requestBody)
+  async createKitchen(requestBody: any) {
     const writer = new writeFyles()
     await writer.execute(requestBody.images)
-    await this.registerKitchen(requestBody, mailEventManager)
+    const kitchen = this.parseKitchen(requestBody)
+    await this.registerKitchen(kitchen)
+    await this.sendNotification(kitchen)
   }
 
-  private async registerKitchen(requestBody: any, mailEventManager: MailEventManager) {
-    const urls = requestBody.images.map((image: any) => String(`http://localhost:8090/${image.name}`))
-    const address = new Address(
-      new Street(String(requestBody.street)),
-      new City(String(requestBody.city)),
-      new PostalCode(String(requestBody.postalCode)),
-      new Province(String(requestBody.province))
-    )
-    const kitchen = new Kitchen(
-      new Id(crypto.randomUUID()),
-      new Name(String(requestBody.name)),
-      new Email(String(requestBody.email)),
-      new PhoneNumber(String(requestBody.phoneNumber)),
-      address,
-      new Capacity(Number(requestBody.capacity)),
-      new ImageUrls(urls)
-    )
+  private parseKitchen(requestBody: any): Kitchen {
+    const parser = new ParseJSONToKitchen()
+    return parser.execute(requestBody)
+  }
+
+  private async registerKitchen(kitchen: Kitchen) {
     await this.KitchenRepository.save(kitchen)
-    await mailEventManager.sendNotification(['perepadial@gmail.com'])
+  }
+
+  private async sendNotification(kitchen: Kitchen) {
+    const event = new KitchenCreatedEvent(kitchen)
+    const publisher = new RabbitMqEventPublisher()
+    await publisher.publishEvent(event, QUEUE_NAME)
   }
 }

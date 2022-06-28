@@ -18,6 +18,10 @@ import activeWorkshopController from './workshop/infrastructure/controllers/Acti
 import getBookingsController from './booking/infrastructure/GetBookingsController'
 import bookedWorkshopController from './workshop/infrastructure/controllers/BookedWorshopController'
 import cors from 'cors'
+import sendNotificationOnKitchenCreated from './users/user/infrastructure/SendNotificationOnKitchenCreated'
+import NotifyAdmins from './users/user/application/NotifyAdmins'
+import UserMongoRepository from './users/user/infrastructure/UserMongoRepository'
+import NodeMailerEventManager from './global/infrastructure/NodeMailerEventManager'
 
 const allowedOrigins = ['127.0.0.1:8090', '127.0.0.1:3000', 'http://localhost:3000', 'http://localhost:8090']
 
@@ -63,6 +67,8 @@ app.get('/bookings/:userId', getBookingsController)
 app.get('/booked-workshop/:userId', bookedWorkshopController)
 
 updateCapacityOnBookingCreatedSubscriber(new UpdateCapacity(new WorkshopMongoRepository()))
+
+sendNotificationOnKitchenCreated(new NotifyAdmins(new UserMongoRepository(), new NodeMailerEventManager()))
 
 app.listen(8090, () => {
   console.log('Server is listening on port ' + port)
