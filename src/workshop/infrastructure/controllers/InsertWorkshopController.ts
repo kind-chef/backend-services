@@ -6,9 +6,10 @@ export default async function InsertWorkshopController(req: express.Request, res
   const repository = new WorkshopMongoRepository()
   const useCase = new Insert(repository)
   try {
-    const result = await useCase.execute(req.body)
-    response.send(result)
+    await useCase.execute(req.body)
+    response.sendStatus(200)
   } catch (e) {
+    response.status(400)
     response.send(e)
   }
 }

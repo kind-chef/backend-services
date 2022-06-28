@@ -1,7 +1,7 @@
 import fs from 'fs'
 
 export default class WriteFyles {
-  execute(files: any[]) {
+  async execute(files: any[]) {
     const directory = '/kind-chef/src/assets'
     files.forEach(async (file) => {
       const encodedstring = file.content.split(',')[1]

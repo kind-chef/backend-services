@@ -48,13 +48,10 @@ const DATABASE_URL = 'mongodb://kindchef:S3cret@mongo:27017/test?authSource=admi
 export default class KitchenMongoRepository implements KitchenRepository {
   async find(id: Id): Promise<Kitchen> {
     await connect(DATABASE_URL)
-    try {
-      const unformattedKitchen = await kitchenModel.findById(id.getValue())
-      const kitchen = this.parseDocumentToKitchen(unformattedKitchen as KitchenDocument)
-      return Promise.resolve(kitchen)
-    } catch (e) {
-      throw new KitchenNotFoundException('Model not found')
-    }
+    const unformattedKitchen = await kitchenModel.findById(id.getValue())
+    if (!unformattedKitchen) throw new KitchenNotFoundException('Model not found')
+    const kitchen = this.parseDocumentToKitchen(unformattedKitchen as KitchenDocument)
+    return Promise.resolve(kitchen)
   }
 
   async save(kitchen: Kitchen) {
@@ -81,7 +78,7 @@ export default class KitchenMongoRepository implements KitchenRepository {
     }
   }
 
-  async findAll(): Promise<Kitchen[]> {
+  async searchUnapproved(): Promise<Kitchen[]> {
     await connect(DATABASE_URL)
     const filter = { approved: false }
     const unformattedKitchens = await kitchenModel.find(filter)
@@ -89,10 +86,6 @@ export default class KitchenMongoRepository implements KitchenRepository {
       return this.parseDocumentToKitchen(value)
     })
     return Promise.resolve(kitchens)
-  }
-
-  delete(): void {
-    throw new Error('Method not implemented.')
   }
 
   private parseDocumentToKitchen(kitchenDocument: KitchenDocument) {

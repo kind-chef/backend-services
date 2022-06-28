@@ -40,7 +40,7 @@ app.post('/login', login)
 
 app.post('/register-kitchen', Kitchen)
 
-app.get('/getall', getAllKitchens)
+app.get('/unapproved-kitchens', getAllKitchens)
 
 app.get('/kitchen/:kitchenId', findKitchen)
 
