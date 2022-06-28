@@ -49,6 +49,13 @@ export default class UserMongoRepository implements UserRepository {
     return user
   }
 
+  async getAdminEmails(): Promise<any> {
+    await this.connect()
+    const filter = { profile: 'Admin' }
+    const emails = await userModel.find(filter).select('email')
+    return emails
+  }
+
   private async connect() {
     return await connect('mongodb://kindchef:S3cret@mongo:27017/test?authSource=admin&w=1')
   }
