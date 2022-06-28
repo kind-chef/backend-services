@@ -25,14 +25,14 @@ interface KitchenDocument {
   images: Types.Array<string>
   approved: boolean
   email: string
-  phoneNumber: string
+  phonenumber: string
 }
 
 const KitchenSchema = new Schema({
   _id: { type: String, required: true },
   name: { type: String, required: true },
   email: { type: String, required: true },
-  phoneNumber: { type: String, required: true },
+  phonenumber: { type: String, required: true },
   capacity: { type: Number },
   city: { type: String },
   postalCode: { type: String },
@@ -48,13 +48,10 @@ const DATABASE_URL = 'mongodb://kindchef:S3cret@mongo:27017/test?authSource=admi
 export default class KitchenMongoRepository implements KitchenRepository {
   async find(id: Id): Promise<Kitchen> {
     await connect(DATABASE_URL)
-    try {
-      const unformattedKitchen = await kitchenModel.findById(id.getValue())
-      const kitchen = this.parseDocumentToKitchen(unformattedKitchen as KitchenDocument)
-      return Promise.resolve(kitchen)
-    } catch (e) {
-      throw new KitchenNotFoundException('Model not found')
-    }
+    const unformattedKitchen = await kitchenModel.findById(id.getValue())
+    if (!unformattedKitchen) throw new KitchenNotFoundException('Model not found')
+    const kitchen = this.parseDocumentToKitchen(unformattedKitchen as KitchenDocument)
+    return Promise.resolve(kitchen)
   }
 
   async save(kitchen: Kitchen) {
@@ -64,7 +61,7 @@ export default class KitchenMongoRepository implements KitchenRepository {
       _id: kitchen.getId(),
       name: kitchen.getName(),
       email: kitchen.getEmail(),
-      phoneNumber: kitchen.getPhoneNumber(),
+      phonenumber: kitchen.getPhoneNumber(),
       capacity: kitchen.getCapacity(),
       city: kitchen.getAddress().getCity(),
       postalCode: kitchen.getAddress().getPostalCode(),
@@ -81,7 +78,7 @@ export default class KitchenMongoRepository implements KitchenRepository {
     }
   }
 
-  async findAll(): Promise<Kitchen[]> {
+  async searchUnapproved(): Promise<Kitchen[]> {
     await connect(DATABASE_URL)
     const filter = { approved: false }
     const unformattedKitchens = await kitchenModel.find(filter)
@@ -91,16 +88,12 @@ export default class KitchenMongoRepository implements KitchenRepository {
     return Promise.resolve(kitchens)
   }
 
-  delete(): void {
-    throw new Error('Method not implemented.')
-  }
-
   private parseDocumentToKitchen(kitchenDocument: KitchenDocument) {
     return new Kitchen(
       new Id(String(kitchenDocument._id)),
       new Name(String(kitchenDocument.name)),
       new Email(String(kitchenDocument.email)),
-      new PhoneNumber(String(kitchenDocument.phoneNumber)),
+      new PhoneNumber(String(kitchenDocument.phonenumber)),
       new Address(
         new Street(String(kitchenDocument.street)),
         new City(String(kitchenDocument.city)),
@@ -112,7 +105,7 @@ export default class KitchenMongoRepository implements KitchenRepository {
     )
   }
 
-  async approve(id: Id): Promise<Boolean> {
+  async approve(id: Id): Promise<boolean> {
     await connect(DATABASE_URL)
     const filter = { _id: id.getValue() }
     const update = { approved: true }

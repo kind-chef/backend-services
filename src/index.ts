@@ -5,8 +5,6 @@ import approveKitchen from './kitchens/kitchen/infrastructure/controllers/Approv
 import registerUser from './users/user/infrastructure/RegisterUserController'
 import insertWorkshop from './workshop/infrastructure/controllers/InsertWorkshopController'
 import login from './users/user/infrastructure/LoginController'
-import { createServer } from 'https'
-import { readFileSync } from 'fs'
 import findKitchen from './kitchens/kitchen/infrastructure/controllers/FindController'
 import path from 'path'
 import unassignedWorkshopsController from './workshop/infrastructure/controllers/UnassignedWorkshopsController'
@@ -19,22 +17,30 @@ import WorkshopMongoRepository from './workshop/infrastructure/WorkshopMongoRepo
 import activeWorkshopController from './workshop/infrastructure/controllers/ActiveWorkshopController'
 import getBookingsController from './booking/infrastructure/GetBookingsController'
 import bookedWorkshopController from './workshop/infrastructure/controllers/BookedWorshopController'
+import cors from 'cors'
+
+const allowedOrigins = ['127.0.0.1:8090', '127.0.0.1:3000', 'http://localhost:3000', 'http://localhost:8090']
+
+const options: cors.CorsOptions = {
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token'],
+  credentials: true,
+  methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+  origin: allowedOrigins,
+  preflightContinue: false
+}
 
 const port = 8090
 const app = express()
+app.use(cors(options))
 app.use(express.json({ limit: '50mb' }))
 app.use(express.static(path.join(__dirname, 'assets')))
-
-const key = readFileSync('./certificates/keyrsa.pem')
-const cert = readFileSync('./certificates/cert.pem')
-
-app.post('/registerUser', registerUser)
+app.post('/register-user', registerUser)
 
 app.post('/login', login)
 
 app.post('/register-kitchen', Kitchen)
 
-app.get('/getall', getAllKitchens)
+app.get('/unapproved-kitchens', getAllKitchens)
 
 app.get('/kitchen/:kitchenId', findKitchen)
 
@@ -58,8 +64,6 @@ app.get('/booked-workshop/:userId', bookedWorkshopController)
 
 updateCapacityOnBookingCreatedSubscriber(new UpdateCapacity(new WorkshopMongoRepository()))
 
-const server = createServer({ key, cert }, app)
-
-server.listen(8090, () => {
+app.listen(8090, () => {
   console.log('Server is listening on port ' + port)
 })

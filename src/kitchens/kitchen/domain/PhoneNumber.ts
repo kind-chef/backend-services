@@ -10,7 +10,7 @@ export default class PhoneNumber {
     this.value = value
   }
 
-  private validate(value: string): Boolean {
+  private validate(value: string): boolean {
     if (!value) return false
     return new RegExp(/^\d+$/).test(value)
   }

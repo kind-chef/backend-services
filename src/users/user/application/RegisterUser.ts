@@ -18,10 +18,10 @@ export default class RegisterUser {
     const email = new Email(request.email)
     const firstName = new FirstName(request.firstName)
     const lastName = new LastName(request.lastName)
-    const phoneNumber = new PhoneNumber(request.phoneNumber)
+    const phonenumber = new PhoneNumber(request.phonenumber)
     const profile = new Profile(request.profile)
     const secret = new Secret(request.secret)
-    const user = new User(email, firstName, lastName, phoneNumber, profile, secret)
+    const user = new User(email, firstName, lastName, phonenumber, profile, secret)
     return await this.repository.register(user)
   }
 }

@@ -49,7 +49,7 @@ const workshopModel = model<WorkhopDocument>('workshop', WorkshopSchema)
 const DATABASE_URL = 'mongodb://kindchef:S3cret@mongo:27017/test?authSource=admin&w=1'
 
 export default class WorkshopMongoRepository implements WorkshopRepository {
-  async insert(workshop: Workshop): Promise<Boolean> {
+  async insert(workshop: Workshop): Promise<boolean> {
     await connect(DATABASE_URL)
     const document = this.parseWorkshopToDocument(workshop)
     const result = await document.save()
@@ -65,7 +65,7 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
       remainingCapacity: workshop.getRemainingCapacity(),
       date: workshop.getDate(),
       price: workshop.getPrice(),
-      keywords: workshop.getKeyWordsStringList(),
+      keywords: workshop.getKeyWordsstringList(),
       ingredients: workshop.getIngredients(),
       images: workshop.getImageUrls(),
       assigned: workshop.getAssigned(),

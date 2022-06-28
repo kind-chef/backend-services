@@ -10,7 +10,7 @@ export default class BookingService {
         rejectUnauthorized: false
       })
     })
-    const callout: any = await instance.get(`https://localhost:8090/bookings/${id}`)
+    const callout: any = await instance.get(`http://localhost:8090/bookings/${id}`)
     const result: Id[] = callout.data.map((booking: any) => new Id(booking.workshop_id))
     return result
   }

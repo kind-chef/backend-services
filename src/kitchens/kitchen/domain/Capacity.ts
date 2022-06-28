@@ -1,11 +1,11 @@
 export default class Capacity {
-  private value: Number
+  private value: number
 
-  constructor(value: Number) {
+  constructor(value: number) {
     this.value = value
   }
 
-  public setValue(value: Number) {
+  public setValue(value: number) {
     this.value = value
   }
 

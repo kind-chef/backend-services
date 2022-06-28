@@ -15,13 +15,13 @@ export default class Kitchen {
   private approved: Approved
   private images: ImageUrls
   private email: Email
-  private phoneNumber: PhoneNumber
+  private phonenumber: PhoneNumber
 
   constructor(
     id: Id,
     name: Name,
     email: Email,
-    phoneNumber: PhoneNumber,
+    phonenumber: PhoneNumber,
     address: Address,
     capacity: Capacity,
     images: ImageUrls,
@@ -31,7 +31,7 @@ export default class Kitchen {
     this.address = address
     this.name = name
     this.id = id
-    ;(this.email = email), (this.phoneNumber = phoneNumber), (this.approved = approved)
+    ;(this.email = email), (this.phonenumber = phonenumber), (this.approved = approved)
     this.images = images
   }
 
@@ -48,7 +48,7 @@ export default class Kitchen {
   }
 
   public getPhoneNumber() {
-    return this.phoneNumber.getValue()
+    return this.phonenumber.getValue()
   }
 
   public getCapacity() {

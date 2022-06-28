@@ -8,7 +8,7 @@ interface UserDocument {
   email: string
   firstName: string
   lastName: string
-  phoneNumber: string
+  phonenumber: string
   profile: string
   secret: string
 }
@@ -17,7 +17,7 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   firstName: { type: String },
   lastName: { type: String, required: true },
-  phoneNumber: { type: String },
+  phonenumber: { type: String },
   profile: { type: String, required: true },
   secret: { type: String, required: true }
 })
@@ -31,7 +31,7 @@ export default class UserMongoRepository implements UserRepository {
       email: user.getEmail(),
       firstName: user.getFirstName(),
       lastName: user.getLastName(),
-      phoneNumber: user.getPhoneNumber(),
+      phonenumber: user.getPhoneNumber(),
       profile: user.getProfile(),
       secret: user.getSecret()
     })

@@ -9,6 +9,6 @@ export default class GetKitchensToApprove {
   }
 
   async execute(): Promise<Kitchen[]> {
-    return await this.repository.findAll()
+    return await this.repository.searchUnapproved()
   }
 }

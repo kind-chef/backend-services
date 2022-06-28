@@ -30,7 +30,7 @@ export default class CreateKitchen {
   }
 
   private async registerKitchen(requestBody: any, mailEventManager: MailEventManager) {
-    const urls = requestBody.images.map((image: any) => String(`https://localhost:8090/${image.name}`))
+    const urls = requestBody.images.map((image: any) => String(`http://localhost:8090/${image.name}`))
     const address = new Address(
       new Street(String(requestBody.street)),
       new City(String(requestBody.city)),

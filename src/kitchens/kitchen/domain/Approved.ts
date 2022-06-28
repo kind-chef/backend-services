@@ -1,15 +1,15 @@
 export default class Approved {
-  private value: Boolean
+  private value: boolean
 
-  constructor(value: Boolean) {
+  constructor(value: boolean) {
     this.setValue(value)
   }
 
-  public getValue(): Boolean {
+  public getValue(): boolean {
     return this.value
   }
 
-  public setValue(value: Boolean) {
+  public setValue(value: boolean) {
     this.value = value
   }
 }

@@ -9,7 +9,7 @@ export default class User {
   private email: Email
   private firstName: FirstName
   private lastName: LastName
-  private phoneNumber: PhoneNumber
+  private phonenumber: PhoneNumber
   private profile: Profile
   private secret: Secret
 
@@ -17,14 +17,14 @@ export default class User {
     email: Email,
     firstName: FirstName,
     lastName: LastName,
-    phoneNumber: PhoneNumber,
+    phonenumber: PhoneNumber,
     profile: Profile,
     secret: Secret
   ) {
     this.email = email
     this.firstName = firstName
     this.lastName = lastName
-    this.phoneNumber = phoneNumber
+    this.phonenumber = phonenumber
     this.profile = profile
     this.secret = secret
   }
@@ -42,7 +42,7 @@ export default class User {
   }
 
   getPhoneNumber(): string {
-    return this.phoneNumber.getValue()
+    return this.phonenumber.getValue()
   }
 
   getProfile(): string {
