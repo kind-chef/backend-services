@@ -94,13 +94,9 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
   async search(id: Array<Id>): Promise<any> {
     await connect(DATABASE_URL)
     const ids = id.map((value: Id) => value.getValue())
-    try {
-      const filter = { _id: { $in: ids } }
-      const workshop = await workshopModel.find(filter)
-      return Promise.resolve(workshop)
-    } catch (e: any) {
-      throw new WorkshopNotFound(e.message)
-    }
+    const filter = { _id: { $in: ids } }
+    const workshop = await workshopModel.find(filter)
+    return Promise.resolve(workshop)
   }
 
   async find(id: Id) {
@@ -130,9 +126,7 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
   async getBookedWorkshops(userId: UserId): Promise<any> {
     const service = new BookingService()
     const workshopIds = await service.getBookings(userId)
-    console.log(workshopIds)
     const result = await this.search(workshopIds)
-    console.log(result)
     return result
   }
 }

@@ -8,7 +8,6 @@ export default async function sendNotificationOnKitchenCreated(useCase: NotifyAd
     (channel: Channel) =>
     async (msg: ConsumeMessage | null): Promise<void> => {
       if (msg) {
-        console.log(msg.content.toString())
         await useCase.execute(msg.content.toString())
         channel.ack(msg)
       }
