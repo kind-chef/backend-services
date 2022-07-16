@@ -16,13 +16,5 @@ jobs:
       - name: Execute linter
         run: yarn run eslint . --ext .ts
 
-      - name: docker ps
-        run: docker ps
-
-      #- name: curl
-      #run: curl -v htpp://localhost:8090/unassigned-workshops
-      - name: Run tests//
+      - name: Run tests
         run: npm run test
-
-      - name: docker log
-        run: docker logs -f --until=2s kind-chef
