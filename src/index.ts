@@ -25,6 +25,14 @@ import NodeMailerEventManager from './global/infrastructure/NodeMailerEventManag
 
 const allowedOrigins = ['127.0.0.1:8090', '127.0.0.1:3000', 'http://localhost:3000', 'http://localhost:8090']
 
+
+const port = 8090
+const app = express()
+app.use(express.json({ limit: '50mb' }))
+
+app.use(express.static(path.join(__dirname, 'assets')))
+
+
 const options: cors.CorsOptions = {
   allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token'],
   credentials: true,
@@ -32,12 +40,8 @@ const options: cors.CorsOptions = {
   origin: allowedOrigins,
   preflightContinue: false
 }
-
-const port = 8090
-const app = express()
 app.use(cors(options))
-app.use(express.json({ limit: '50mb' }))
-app.use(express.static(path.join(__dirname, 'assets')))
+
 app.post('/register-user', registerUser)
 
 app.post('/login', login)

@@ -1,7 +1,7 @@
 import client, { Connection, Channel, ConsumeMessage } from 'amqplib'
 import UpdateCapacity from '../application/UpdateCapacity'
 const QUEUE_NAME = 'notify_book_created'
-const RABBIT_MQ_URL = 'amqp://guest:guest@rabbitmq:5672/kindhost'
+const RABBIT_MQ_URL = 'amqp://guest:guest@kind-rabbitmq:5672/kindhost'
 
 export default async function updateCapacityOnBookingCreatedSubscriber(useCase: UpdateCapacity) {
   const consumer =

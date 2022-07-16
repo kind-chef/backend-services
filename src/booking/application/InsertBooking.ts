@@ -5,8 +5,9 @@ import CustomerId from '../domain/CustomerId'
 import NotEnoughCapacityException from '../domain/NotEnoughCapacityException'
 import Places from '../domain/Places'
 import WorkshopId from '../domain/WorkshopId'
-import RabbitMqEventPublisher from './RabbitMqEventPublisher'
+import RabbitMqEventPublisher from '../../global/application/RabbitMqEventPublisher'
 
+const QUEUE_NAME = 'notify_book_created'
 export default class InsertBooking {
   private repository: BookingRepository
 
@@ -25,7 +26,7 @@ export default class InsertBooking {
   private async publishEvent(requestBody: any) {
     const event = new BookingCreatedEvent(JSON.stringify(requestBody))
     const publisher = new RabbitMqEventPublisher()
-    await publisher.publishEvent(event)
+    await publisher.publishEvent(event, QUEUE_NAME)
   }
 
   private parseBody(requestBody: any): Booking {

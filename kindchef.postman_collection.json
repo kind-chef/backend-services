@@ -1,0 +1,286 @@
+{
+	"info": {
+		"_postman_id": "de1ab807-660c-4ee1-af6c-cfdb38122fdd",
+		"name": "kindchef",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3594739"
+	},
+	"item": [
+		{
+			"name": "Register kitchen Model",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Random Kitchen2\", \n    \"street\":\"Random\",\n    \"city\":\"Random\",\n    \"province\":\"\",\n    \"postalCode\":\"85779\",\n    \"capacity\": 100, \n    \"images\":[]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/register-kitchen",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"register-kitchen"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\" : \"Pere\",\n    \"lastName\" : \"Padial\",\n    \"email\":\"perepadial2@gmail.com\", \n    \"profile\":\"Admin\",\n    \"phoneNumber\":\"666273849\", \n    \"secret\":\"5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/register-user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"register-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"perepadial@gmail.com\",\"secret\":\"5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Workshop",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/kitchen/1c0d3a35-9228-4b5e-999a-a2a253348d18",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"kitchen",
+						"1c0d3a35-9228-4b5e-999a-a2a253348d18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Approve Kitchen",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/approve-kitchen/1c0d3a35-9228-4b5e-999a-a2a253348d18",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"approve-kitchen",
+						"1c0d3a35-9228-4b5e-999a-a2a253348d18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Workshop",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"id\":\"Idaskdlfjskfljsaldkfj-asdfjldjsfl-134123sadf\",\n\"name\":\"test-workshop\",\n\"description\":\"description\",\n\"capacity\": 15,\n\"remainingCapacity\":15,\n\"date\": \"2022-14-09T00:00:00Z\",\n\"price\": 13.93,\n\"keywords\": [\"k1\"],\n\"ingredients\":\"i1\",\n\"images\":[],\n\"city\": \"Terrassa\",\n\"postalCode\": \"95774\",\n\"province\":\"Barcelona\",\n\"street\":\"Fake Street\",\n\"videoUrl\": \"fake video\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/register-workshop",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"register-workshop"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "unassigned workshops",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/unassigned-workshops",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"unassigned-workshops"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find workshop",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/workshop/962d6392-21e5-415c-8351-04cbb60bfeb6",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"workshop",
+						"962d6392-21e5-415c-8351-04cbb60bfeb6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Workshop",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"workshopId\" : \"962d6392-21e5-415c-8351-04cbb60bfeb6\", \n    \"userId\" : \"TestUserId\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/assign-workshop",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"assign-workshop"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register booking",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerId\" : \"askdfjlasd;kf\", \n    \"workshopId\" : \"962d6392-21e5-415c-8351-04cbb60bfeb6\", \n    \"places\" : 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/register-booking",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"register-booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Active workshops",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/active-workshops",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"active-workshops"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bookings",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Booked Workshops",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Find Kitchen",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Unapproved kitchens",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

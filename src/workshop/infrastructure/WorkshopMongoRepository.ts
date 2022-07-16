@@ -88,7 +88,7 @@ export default class WorkshopMongoRepository implements WorkshopRepository {
     await connect(DATABASE_URL)
     const filter = { assigned: { $ne: null }, date: { $gte: new Date() } }
     const result = await workshopModel.find(filter).select('name description images')
-    return Promise.resolve(result)
+    return result
   }
 
   async search(id: Array<Id>): Promise<any> {

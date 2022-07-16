@@ -11,16 +11,16 @@ services:
     networks:
       - kind_network
     depends_on:
-      rabbitmq:
+      kind-rabbitmq:
         condition: service_healthy
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:8090']
       interval: 30s
       timeout: 10s
       retries: 5
-  rabbitmq:
+  kind-rabbitmq:
     build: ./rabbitmq/
-    container_name: 'rabbitmq'
+    container_name: 'kind-rabbitmq'
     ports:
       - 5672:5672
       - 15672:15672
@@ -32,7 +32,7 @@ services:
     environment:
       RABBITMQ_DEFAULT_PASS: guest
       RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_VHOST: user
+      RABBITMQ_DEFAULT_VHOST: kindhost
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:15672']
       interval: 30s
