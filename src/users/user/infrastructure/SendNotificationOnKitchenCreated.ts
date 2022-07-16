@@ -1,14 +1,13 @@
 import NotifyAdmins from '../application/NotifyAdmins'
 import client, { Connection, Channel, ConsumeMessage } from 'amqplib'
 const QUEUE_NAME = 'notify_kitchen_created'
-const RABBIT_MQ_URL = 'amqp://guest:guest@rabbitmq:5672/kindhost'
+const RABBIT_MQ_URL = 'amqp://guest:guest@kind-rabbitmq:5672/kindhost'
 
 export default async function sendNotificationOnKitchenCreated(useCase: NotifyAdmins) {
   const consumer =
     (channel: Channel) =>
     async (msg: ConsumeMessage | null): Promise<void> => {
       if (msg) {
-        console.log(msg.content.toString())
         await useCase.execute(msg.content.toString())
         channel.ack(msg)
       }
